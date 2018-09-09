@@ -1,0 +1,7 @@
+"Nombre"|"Apellido"|"Edad"|"Sexo"|"Puntaje"
+"Alice"|"Knudsen"|37|"F"|278
+"Poul"|"Knudsen"|34|"M"|242
+"Jokum"|"Jonassen"|26|"M"|312
+"Theodor"|"Thorvaldsen"|72|"M"|740
+"Babette"|"Brodersen"|18|"F"|177
+"Lynette"|"Lauridsen"|24|"F"|195
