@@ -6,7 +6,7 @@
 
 int mini=1;
 int maxi=15000;					//32767 es el maximo
-int CANT=103001;				//103611 ese es el maximo, la computadora no ejecuta mas, 
+int CANT=50001;					//103611 ese es el maximo, la computadora no ejecuta mas
 
 void IMP_TIEMPO(clock_t inicio,clock_t fin){
 	float total = (double)(fin - inicio)/CLOCKS_PER_SEC;
