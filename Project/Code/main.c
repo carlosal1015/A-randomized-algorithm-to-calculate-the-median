@@ -1,15 +1,16 @@
-#include<stdio.h>
-#include<time.h>
-#include<stdlib.h>
-#include<math.h>
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#include <math.h>
 
-
-int mini=1;
-int maxi=15000;					//32767 es el maximo
-int CANT=50001;					//103611 ese es el maximo, la computadora no ejecuta mas
+	int mini=1;
+	int maxi=15000;					/* 32767 es el valor máximo */
+	int CANT=50001;					/* 103611 es el valor máximo. La computadora no ejecuta mas */
 
 void IMP_TIEMPO(clock_t inicio,clock_t fin){
+
 	float total = (double)(fin - inicio)/CLOCKS_PER_SEC;
+	
 	printf("\n\t--------------------\n");
 	printf("\tTiempo %.10f",total);
 	printf("\n\t--------------------\n");
@@ -17,7 +18,9 @@ void IMP_TIEMPO(clock_t inicio,clock_t fin){
 
 
 void IMPRIMIR(int A[],int r){
+
 	int i;
+
 	printf("\n");
 	for(i=0;i<r;i++){
 		printf("%d\t",A[i]);
@@ -26,6 +29,7 @@ void IMPRIMIR(int A[],int r){
 }
 
 void IMP_MEDIANA(int A[],int r){
+
 	if(r%2==1){
 		printf("\n\tMediana: %d",A[(r-1)/2]);
 	}
@@ -35,12 +39,14 @@ void IMP_MEDIANA(int A[],int r){
 }
 
 void CAMBIO (int *a,int *b){
+
 	int c=*a;
 	*a=*b;
 	*b=c;
 }
 
 void BURBUJA (int *A,int r){
+
 	int i,j;
 	for(i=0;i<r-1;i++){
 		for(j=i+1;j<r;j++){
@@ -53,6 +59,7 @@ void BURBUJA (int *A,int r){
 }
 
 int PARTICION (int *A,int p, int r){
+
 	int x=A[r-1];
 	int i=p-1;
 	int j;
@@ -95,6 +102,7 @@ void RANDOM_QUICKSORT (int *A,int p,int r){
 }
 
 int RANDOM_SELECCION (int *A,int p,int r,int i){
+
 	if(p==r-1){
 		return A[p];
 	}
@@ -115,7 +123,7 @@ int RANDOM_SELECCION (int *A,int p,int r,int i){
 	}
 }
 
-void main(){
+int main(void){
 	int r=CANT;	//cantidad de datos
 	int A[r],B[r],C[r],D[r],E[r];		//A es el original y no se modifica
 										//B se ordena con burbuja
@@ -134,7 +142,7 @@ void main(){
 		E[i]=A[i];
 	}
 	
-	clock_t start_t, end_t,inicio,fin;				//para contar el tiempo
+	clock_t start_t, end_t,inicio,fin;				/* para contar el tiempo */
 
 
 	printf("\nQUICKSORT:\n");
@@ -170,5 +178,6 @@ void main(){
 	//IMPRIMIR(B,r);
 	IMP_MEDIANA(B,r);
 	IMP_TIEMPO(inicio,fin);
-	
+
+	return 0;
 }
