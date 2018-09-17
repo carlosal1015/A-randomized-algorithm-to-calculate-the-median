@@ -1,4 +1,7 @@
 # LINKS DE YOUTUBE
 
 https://www.youtube.com/watch?v=ZdWsqD2awhE
+
 https://www.youtube.com/watch?v=0bt0_dP9IOA&t=146s
+
+https://rcoh.me/posts/linear-time-median-finding/
