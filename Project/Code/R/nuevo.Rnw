@@ -1,0 +1,9 @@
+\documentclass{article}
+
+\author{Facultad de Ciencias}
+\begin{document}
+\maketitle
+
+
+
+\end{document}

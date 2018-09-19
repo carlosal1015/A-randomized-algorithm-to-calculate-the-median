@@ -1,0 +1,8 @@
+\documentclass{article}
+
+\begin{document}
+
+Hola mundo
+\section*{ABC}
+
+\end{document}
