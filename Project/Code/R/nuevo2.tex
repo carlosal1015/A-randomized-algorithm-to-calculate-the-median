@@ -64,77 +64,85 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definición}[subsection]
 \title{Un algoritmo aleatorizado para calcular la mediana}
-\author{Jesús Jáuregui \and Miller Silva \and Erwin \and Carlos Aznarán\thanks{El profesor César Lara Ávila}}
+\author{Jesús Jáuregui Alvarado, \and Miller Silva Menejes, \and Erwin Talla Chumpitaz y Carlos Aznarán Laos}
+%\thanks{El profesor César Lara Ávila}
 %\author{Michael \IEEEmembership{Member,~IEEE,\thanks{M}}}
 
-\renewcommand\IEEEkeywordsname{Palabras clave}
+%\renewcommand\IEEEkeywordsname{Palabras clave}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 \maketitle
-\begin{abstract}
-En este trabajo, 
+%\begin{abstract}
+%En este trabajo, 
 % Una pequeña descripción total del trabajo.
-\end{abstract}
-\begin{IEEEkeywords}
-Cuantil, Percentil, Mediana, Quick Sort, Heap Sort.
-\end{IEEEkeywords}
+%\end{abstract}
+%\begin{IEEEkeywords}
+%Cuantil, Percentil, Mediana, Quick Sort, Heap Sort.
+%\end{IEEEkeywords}
 % TODO: Después de introducción que esté en dos columnas.
 \section{Introducción}
-
-\subsection{Definiciones}
+No hay persona en el mundo que no se haya valido en la Estadística y Probabilidad en algún momento de su vida, desde calcular el tiempo promedio al salir de su casa a esperar el bus para dirigirse al trabajo, pasando por juegos de azar, hasta realizar complejos cálculos para pronosticar resultados futuros para invertir en la bolsa. En el mundo de la estadística existen distintas medidas de tendencia central, entre las más comunes se encuentran; la media, la mediana y la moda, en este reporte nos enfocaremos en la Mediana, repasando desde su origen, importancia y sus aplicaciones en la vida, mediante un ejemplo con datos estadísticos recogidos desde (\textbf{Aún no se ha definido la muestra sobre la cual se va a realizar la experimentación}), entonces al finalizar de leer este reporte usted sabrá como y cuando utilizar la mediana como medida de tendencia central, así mismo le mostraremos como implementar un código en R que realice este procedimiento de la manera más eficientemente posible.
+%\section{Definiciones}
 
 % TODO: (JAUREGUI) Completar 
-\begin{definition}[Percentil]
-Es un valor
-\end{definition}
+%\begin{definition}[Percentil]
+%Es un valor
+%\end{definition}
 
-\begin{definition}[Mediana de una distribución]
-Es un valor $x_m$ de $\mathbb{X}$ tal que el $50\%$ de los posibles valores de $X$ están por debajo de $x_m$ y el $50\%$ de los posibles valores de $\mathbb{X}$ están por arriba de $x_m$.
-\end{definition}
+%\begin{definition}[Mediana de una distribución]
+%Es un valor $x_m$ de $\mathbb{X}$ tal que el $50\%$ de los posibles valores de $X$ están por debajo de $x_m$ y el $50\%$ de los posibles valores de $\mathbb{X}$ están por arriba de $x_m$.
+%\end{definition}
+
+\section{Estado del arte}
 
 \section{Diseño del experimento}
 En este proyecto, para obtener un algoritmo eficiente para obtener de manera aleatoria la mediana de un conjunto de datos desordenados, se debe tener algunos conceptos previos para poder entender y posteriormente desarrollar un código. Los conceptos a desarrollar son: Algoritmos de búsqueda, Algoritmos de ordenamiento, Algoritmos aleatorios.
 
 \subsection{Algoritmos de búsqueda}
 Un algoritmo de búsqueda se encarga de, a partir de una serie de criterios, encontrar un determinado elemento dentro de un conjunto de datos. Dentro de los más conocidos y más utilizados están:
-\begin{itemize}
-\item[Búsqueda secuencial] Para encontrar un elemento en un conjunto estructurado, se analiza elemento por elemento hasta encontrar con aquel elemento solicitado. Tiene un tiempo, en el peor caso, de $O(n)$.
-\item[Búsqueda binaria] En este caso, el conjunto de elementos debe estar ordenado de modo que se compara con el elemento medio si es menor(izquierda), mayor(derecha) e igual (devuelve el valor), y se repite el proceso reduciendo la cantidad de datos. Tiene un tiempo, en el peor caso, de $O(log2n)$.
-\end{itemize}
+\subsubsection{Búsqueda secuencial}
+Para encontrar un elemento en un conjunto estructurado, se analiza elemento por elemento hasta encontrar con aquel elemento solicitado. Tiene un tiempo, en el peor caso, de $O(n)$.
+\subsection{Búsqueda binaria}
+En este caso, el conjunto de elementos debe estar ordenado de modo que se compara con el elemento medio si es menor(izquierda), mayor(derecha) e igual (devuelve el valor), y se repite el proceso reduciendo la cantidad de datos. Tiene un tiempo, en el peor caso, de $O(log2n)$.
 
 \subsection{Algoritmo de ordenamiento}
 
 Un algoritmo de ordenamiento se encarga de comparar todos los elementos y colocarlos en un orden, mediante algún método (intercambio, mezcla, partición, etc.). Los algoritmos más utilizados son: %(Cormen. 30-31, 148-150, 170-174)
 
-\begin{itemize}
-\item[Ordenamiento de burbuja] Este algoritmo funciona comparando cada elemento de la lista con el siguiente e intercambiando si es que el elemento comparado es menor. Tiene como complejidad $O(n2)$.
+\subsubsection{Ordenamiento de burbuja}
 
-\item[Ordenamiento por mezcla] Este algoritmo funciona dividiendo en la mitad recursivamente en una cantidad de elementos, cuando son pequeñas cantidades se procede a ordenarlos y agruparlos, de manera progresiva hasta su totalidad. Tiene complejidad $O(nlog2n)$.
+Este algoritmo funciona comparando cada elemento de la lista con el siguiente e intercambiando si es que el elemento comparado es menor. Tiene como complejidad $O(n^2)$.
 
-\item[Ordenamiento rápido] Este algoritmo funciona utilizando un pivote, el cual tiene la función de comparar y particionar el conjunto de datos entre menores y mayores que el pivote, este procedimiento se repite en las dos particiones y así sucesivamente. Tiene complejidad $O(nlog2n)$. Es uno de los algoritmos más rápidos, por tal motivo se tiene pensado utilizar este algoritmo para lograr el objetivo de este proyecto.
-\end{itemize}
+\subsubsection{Ordenamiento por mezcla}
 
-\section{Algoritmos aleatorios}
+Este algoritmo funciona dividiendo en la mitad recursivamente en una cantidad de elementos, cuando son pequeñas cantidades se procede a ordenarlos y agruparlos, de manera progresiva hasta su totalidad. Tiene complejidad $O(n\log 2n)$.
+
+\subsubsection{Ordenamiento rápido}
+
+Este algoritmo funciona utilizando un pivote, el cual tiene la función de comparar y particionar el conjunto de datos entre menores y mayores que el pivote, este procedimiento se repite en las dos particiones y así sucesivamente. Tiene complejidad $O(nlog2n)$. Es uno de los algoritmos más rápidos, por tal motivo se tiene pensado utilizar este algoritmo para lograr el objetivo de este proyecto.
+
+\subsection{Algoritmos aleatorios}
 Los algoritmos aleatorios son aquellos que utilizan en alguna parte de su estructura números aleatorios, con el fin de lograr las mismas posibilidades frente a cualquier caso. Es entonces, enfocado a nuestro proyecto, necesario utilizar la aleatoriedad para obtener una mejor probabilidad. Por lo expuesto, se procede a elaborar un seudocódigo para hallar la mediana de manera aleatoria con la idea de poder transcribirlo a cualquier lenguaje de programación, en nuestro caso en lenguaje R. Para hallar la mediana de un conjunto de datos, se deben de utilizar un algoritmo de ordenamiento y de búsqueda, ya que no se sabe si el conjunto de datos está ordenado. Para ello se analiza primero los algoritmos de búsqueda. Aplicado a nuestro objetivo sería ineficiente buscar secuencialmente la mediana, ya que no necesitamos recorrer toda la cadena para hallarlo, aun peor cuando no está ordenado. Igualmente pasaría con un algoritmo de búsqueda binaria, ya que de estar ordenado tan solo se necesitaría devolver. Entonces, es necesario implementar algún algoritmo de ordenamiento.
-Como se presentó anteriormente, existen diferentes tipos de algoritmos de ordenamiento. Para escoger el más indicado se debe tomar en cuenta el tiempo de ejecución, es decir cuánto tiempo demora en ordenar todo el conjunto de datos. Para ello se utiliza la gran O como determinante para el análisis de los tiempos. Se tiene algoritmos de ordenamiento en $O(n2)$, $O(nlogn)$ y hasta $O(n)$. 
-Sin embargo, no es necesario ordenarlo todo para hallarlo. Para ello se podría ordenar hasta n/2 de forma secuencial sin problema alguno y el resto dejarlo tal como estaba. Podría ser una solución buena, pero se puede mejorar aún más. Si analizamos la estructura del Quicksort, nos puede ayudar en la búsqueda de la mediana, el cual cuenta con dos funciones:
-*La función ‘PARTICION’ tiene como entrada A, p y r. A es una cadena de elementos de tamaño n, p es la posición inicial relativa y r es una posición final relativa. La función se encarga de seleccionar un pivote, el cual es el último elemento en la cadena, en donde se una separación de los números en comparación con el pivote, donde los menores irán a la izquierda y los mayores a la derecha. Por último, el pivote intercambia de posición con el primer mayor encontrado, y devuelve esa posición.
+Como se presentó anteriormente, existen diferentes tipos de algoritmos de ordenamiento. Para escoger el más indicado se debe tomar en cuenta el tiempo de ejecución, es decir cuánto tiempo demora en ordenar todo el conjunto de datos. Para ello se utiliza la gran $O$ como determinante para el análisis de los tiempos. Se tiene algoritmos de ordenamiento en $O(n^2)$, $O(n\log n)$ y hasta $O(n)$. 
+Sin embargo, no es necesario ordenarlo todo para hallarlo. Para ello se podría ordenar hasta $n/2$ de forma secuencial sin problema alguno y el resto dejarlo tal como estaba. Podría ser una solución buena, pero se puede mejorar aún más. Si analizamos la estructura del Quicksort, nos puede ayudar en la búsqueda de la mediana, el cual cuenta con dos funciones:
+*La función ``PARTICION'' tiene como entrada $A$, $p$ y $r$. $A$ es una cadena de elementos de tamaño $n$, $p$ es la posición inicial relativa y $r$ es una posición final relativa. La función se encarga de seleccionar un pivote, el cual es el último elemento en la cadena, en donde se una separación de los números en comparación con el pivote, donde los menores irán a la izquierda y los mayores a la derecha. Por último, el pivote intercambia de posición con el primer mayor encontrado, y devuelve esa posición.
 
-\begin{algorithm}[ht]
-	\caption{Épsilon de la máquina}
-	\begin{algorithmic}[1]
-		\For{k}{1}{100}
-		\State $s \gets  0.5*s$
-		\State $t \gets s+1.0$
-		\If{ $t \leq 1.0$ }
-		\State $s \gets 2.0*s$
-		\State Escribir $k-1$, $s$
-		\State Salir
-		\EndIf
-		\EndFor
-	\end{algorithmic}
-\end{algorithm}
+%\begin{algorithm}[ht]
+%	\caption{Épsilon de la máquina}
+%	\begin{algorithmic}[1]
+%		\For{k}{1}{100}
+%		\State $s \gets  0.5*s$
+%		\State $t \gets s+1.0$
+%		\If{ $t \leq 1.0$ }
+%		\State $s \gets 2.0*s$
+%		\State Escribir $k-1$, $s$
+%		\State Salir
+%		\EndIf
+%		\EndFor
+%	\end{algorithmic}
+%\end{algorithm}
 
-\section{Agradecimientos}
+%\section{Agradecimientos}
 
 \end{document}
+Buscar los método de contraste de mediana y moda.
