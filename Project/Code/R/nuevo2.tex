@@ -1,4 +1,6 @@
-\documentclass[9pt,draft,a4paper,twoside,onecolumn,romanappendices]{IEEEtran}\usepackage[]{graphicx}\usepackage[]{color}
+% !Rnw weave = knitr
+% !TeX program = XeLaTeX
+\documentclass[final,a4paper,romanappendices]{IEEEtran}\usepackage[]{graphicx}\usepackage[]{color}
 %% maxwidth is the original width if it is less than linewidth
 %% otherwise use linewidth (to make sure the graphics do not exceed the margin)
 \makeatletter
@@ -48,7 +50,7 @@
 \definecolor{errorcolor}{rgb}{1, 0, 0}
 \newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
 
-\usepackage{alltt}
+\usepackage{alltt}%draft, onecolumn,9pt,twoside
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
@@ -59,12 +61,23 @@
 \usepackage{graphicx}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{lipsum}
 \floatname{algorithm}{Algoritmo}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definición}[subsection]
 \title{Un algoritmo aleatorizado para calcular la mediana}
-\author{Jesús Jáuregui Alvarado, \and Miller Silva Menejes, \and Erwin Talla Chumpitaz y Carlos Aznarán Laos}
+\author{\IEEEauthorblockN{Erwin Talla Chumpitaz\IEEEauthorrefmark{1},
+Carlos Aznarán Laos\IEEEauthorrefmark{2}, Miller Silva Menejes\IEEEauthorrefmark{3} y 
+Jesús Jáuregui Alvarado\IEEEauthorrefmark{4}}
+\IEEEauthorblockA{\\Facultad de Ciencias,
+Universidad Nacional de Ingeniería\\
+Av. Túpac Amaru 210, Rímac, Lima 25, Perú\\
+Email: \IEEEauthorrefmark{1}erwinleo\textunderscore 98@hotmail.com,
+\IEEEauthorrefmark{2}caznaranl@uni.pe,
+\IEEEauthorrefmark{3}miller\textunderscore silva\textunderscore 96@hotmail.com,
+\IEEEauthorrefmark{4}jesuz.jz@gmail.com}}
+
 %\thanks{El profesor César Lara Ávila}
 %\author{Michael \IEEEmembership{Member,~IEEE,\thanks{M}}}
 
@@ -96,18 +109,15 @@ No hay persona en el mundo que no se haya valido en la Estadística y Probabilid
 \section{Estado del arte}
 
 \begin{itemize}
+  \item El primer algoritmo aleatorizado fue un método desarrollado por Michael O. Rabin para el problema de par más cercano en la geometría computacional:
 
-\item El primer algoritmo aleatorizado fue un método desarrollado por Michael O. Rabin para el problema de par más cercano en la geometría computacional:
-\begin{center}
- “Dados n puntos en el espacio métrico , encuentre un par de puntos con la menor distancia entre ellos”
-\end{center}
-\item Un algoritmo ingenuo para encontrar distancias entre todos los pares de puntos en un espacio de dimensión d y seleccionar el mínimo requiere $O(n^2)$ tiempo y se puede resolver en $O(n\log n)$ tiempo en un espacio euclidiano. En el modelo computacional que
+{\centering
+``Dados n puntos en el espacio métrico , encuentre un par de puntos con la menor distancia entre ellos''\par
+}
+  \item Un algoritmo ingenuo para encontrar distancias entre todos los pares de puntos en un espacio de dimensión $d$ y seleccionar el mínimo requiere $O(n^2)$ tiempo y se puede resolver en $O(n\log n)$ tiempo en un espacio euclidiano. En el modelo computacional que
 asume que la función de piso es computable en tiempo constante, el problema se puede resolver en el tiempo $O(n\log n\log n)$. Si permitimos que la aleatorización se use junto con la función de piso, el problema se puede resolver en el tiempo $O(n)$. 
-
-\item Michael O. Rabin demostró que la prueba de primalidad de Miller de 1976 se puede convertir en un algoritmo aleatorizado. En ese momento, no se conocía ningún algoritmo determinístico práctico para la primalidad.
-
-\item Actualmente existen varios algoritmos aleatorios para encontrar la mediana, cada algoritmo se diferencia en su procedimiento para ordenar los datos aleatorios. Los algoritmos más usados por su eficacia y eficiencia para ordenar datos son merge sort, heapsort y quicksort.
-
+  \item Michael O. Rabin demostró que la prueba de primalidad de Miller de 1976 se puede convertir en un algoritmo aleatorizado. En ese momento, no se conocía ningún algoritmo determinístico práctico para la primalidad.
+  \item Actualmente existen varios algoritmos aleatorios para encontrar la mediana, cada algoritmo se diferencia en su procedimiento para ordenar los datos aleatorios. Los algoritmos más usados por su eficacia y eficiencia para ordenar datos son merge sort, heapsort y quicksort.
 \end{itemize}
 
 \section{Diseño del experimento}
@@ -158,6 +168,50 @@ Sin embargo, no es necesario ordenarlo todo para hallarlo. Para ello se podría 
 %\end{algorithm}
 
 %\section{Agradecimientos}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{set.seed}\hlstd{(}\hlnum{1121}\hlstd{)}
+\hlstd{(x}\hlkwb{=}\hlkwd{rnorm}\hlstd{(}\hlnum{20}\hlstd{))}
+\end{alltt}
+\begin{verbatim}
+##  [1]  0.1449583  0.4383221  0.1531912  1.0849426  1.9995449 -0.8118832
+##  [7]  0.1602680  0.5858923  0.3600880 -0.0253084  0.1508809  0.1100824
+## [13]  1.3596812 -0.3269946 -0.7163819  1.8097690  0.5084011 -0.5274603
+## [19]  0.1327188 -0.1559430
+\end{verbatim}
+\begin{alltt}
+\hlkwd{mean}\hlstd{(x);}\hlkwd{var}\hlstd{(x)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.3217385
+## [1] 0.5714534
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+The first element of \texttt{x} is 0.1449583. Boring boxplots
+and histograms recorded by the PDF device:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{## two plots side by side (option fig.show='hold')}
+\hlkwd{par}\hlstd{(}\hlkwc{mar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{4}\hlstd{,}\hlnum{4}\hlstd{,}\hlnum{.1}\hlstd{,}\hlnum{.1}\hlstd{),}\hlkwc{cex.lab}\hlstd{=}\hlnum{.95}\hlstd{,}\hlkwc{cex.axis}\hlstd{=}\hlnum{.9}\hlstd{,}\hlkwc{mgp}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{2}\hlstd{,}\hlnum{.7}\hlstd{,}\hlnum{0}\hlstd{),}\hlkwc{tcl}\hlstd{=}\hlopt{-}\hlnum{.3}\hlstd{,}\hlkwc{las}\hlstd{=}\hlnum{1}\hlstd{)}
+\hlkwd{boxplot}\hlstd{(x)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.4\linewidth]{figure/boring-plots-1} 
+\begin{kframe}\begin{alltt}
+\hlkwd{hist}\hlstd{(x,}\hlkwc{main}\hlstd{=}\hlstr{''}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.4\linewidth]{figure/boring-plots-2} 
+
+\end{knitrout}
+
+\lipsum[1-5]
 
 \end{document}
 Buscar los método de contraste de mediana y moda.

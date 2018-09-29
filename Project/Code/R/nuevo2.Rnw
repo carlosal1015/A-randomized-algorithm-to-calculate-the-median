@@ -1,4 +1,6 @@
-\documentclass[9pt,draft,a4paper,twoside,onecolumn,romanappendices]{IEEEtran}
+% !Rnw weave = knitr
+% !TeX program = XeLaTeX
+\documentclass[final,a4paper,romanappendices]{IEEEtran}%draft, onecolumn,9pt,twoside
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
@@ -9,12 +11,23 @@
 \usepackage{graphicx}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{lipsum}
 \floatname{algorithm}{Algoritmo}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definición}[subsection]
 \title{Un algoritmo aleatorizado para calcular la mediana}
-\author{Jesús Jáuregui Alvarado, \and Miller Silva Menejes, \and Erwin Talla Chumpitaz y Carlos Aznarán Laos}
+\author{\IEEEauthorblockN{Erwin Talla Chumpitaz\IEEEauthorrefmark{1},
+Carlos Aznarán Laos\IEEEauthorrefmark{2}, Miller Silva Menejes\IEEEauthorrefmark{3} y 
+Jesús Jáuregui Alvarado\IEEEauthorrefmark{4}}
+\IEEEauthorblockA{\\Facultad de Ciencias,
+Universidad Nacional de Ingeniería\\
+Av. Túpac Amaru 210, Rímac, Lima 25, Perú\\
+Email: \IEEEauthorrefmark{1}erwinleo\textunderscore 98@hotmail.com,
+\IEEEauthorrefmark{2}caznaranl@uni.pe,
+\IEEEauthorrefmark{3}miller\textunderscore silva\textunderscore 96@hotmail.com,
+\IEEEauthorrefmark{4}jesuz.jz@gmail.com}}
+
 %\thanks{El profesor César Lara Ávila}
 %\author{Michael \IEEEmembership{Member,~IEEE,\thanks{M}}}
 
@@ -44,6 +57,18 @@ No hay persona en el mundo que no se haya valido en la Estadística y Probabilid
 
 \section{Estado del arte}
 
+\begin{itemize}
+  \item El primer algoritmo aleatorizado fue un método desarrollado por Michael O. Rabin para el problema de par más cercano en la geometría computacional:
+
+{\centering
+``Dados n puntos en el espacio métrico , encuentre un par de puntos con la menor distancia entre ellos''\par
+}
+  \item Un algoritmo ingenuo para encontrar distancias entre todos los pares de puntos en un espacio de dimensión $d$ y seleccionar el mínimo requiere $O(n^2)$ tiempo y se puede resolver en $O(n\log n)$ tiempo en un espacio euclidiano. En el modelo computacional que
+asume que la función de piso es computable en tiempo constante, el problema se puede resolver en el tiempo $O(n\log n\log n)$. Si permitimos que la aleatorización se use junto con la función de piso, el problema se puede resolver en el tiempo $O(n)$. 
+  \item Michael O. Rabin demostró que la prueba de primalidad de Miller de 1976 se puede convertir en un algoritmo aleatorizado. En ese momento, no se conocía ningún algoritmo determinístico práctico para la primalidad.
+  \item Actualmente existen varios algoritmos aleatorios para encontrar la mediana, cada algoritmo se diferencia en su procedimiento para ordenar los datos aleatorios. Los algoritmos más usados por su eficacia y eficiencia para ordenar datos son merge sort, heapsort y quicksort.
+\end{itemize}
+
 \section{Diseño del experimento}
 En este proyecto, para obtener un algoritmo eficiente para obtener de manera aleatoria la mediana de un conjunto de datos desordenados, se debe tener algunos conceptos previos para poder entender y posteriormente desarrollar un código. Los conceptos a desarrollar son: Algoritmos de búsqueda, Algoritmos de ordenamiento, Algoritmos aleatorios.
 
@@ -64,15 +89,15 @@ Este algoritmo funciona comparando cada elemento de la lista con el siguiente e 
 
 \subsubsection{Ordenamiento por mezcla}
 
-Este algoritmo funciona dividiendo en la mitad recursivamente en una cantidad de elementos, cuando son pequeñas cantidades se procede a ordenarlos y agruparlos, de manera progresiva hasta su totalidad. Tiene complejidad $O(n\log 2n)$.
+Este algoritmo funciona dividiendo en la mitad recursivamente en una cantidad de elementos, cuando son pequeñas cantidades se procede a ordenarlos y agruparlos, de manera progresiva hasta su totalidad. Tiene complejidad $O(n\log_{2} n)$.
 
 \subsubsection{Ordenamiento rápido}
 
-Este algoritmo funciona utilizando un pivote, el cual tiene la función de comparar y particionar el conjunto de datos entre menores y mayores que el pivote, este procedimiento se repite en las dos particiones y así sucesivamente. Tiene complejidad $O(nlog2n)$. Es uno de los algoritmos más rápidos, por tal motivo se tiene pensado utilizar este algoritmo para lograr el objetivo de este proyecto.
+Este algoritmo funciona utilizando un pivote, el cual tiene la función de comparar y particionar el conjunto de datos entre menores y mayores que el pivote, este procedimiento se repite en las dos particiones y así sucesivamente. Tiene complejidad $O(n\log_{2} n)$. Es uno de los algoritmos más rápidos, por tal motivo se tiene pensado utilizar este algoritmo para lograr el objetivo de este proyecto.
 
 \subsection{Algoritmos aleatorios}
 Los algoritmos aleatorios son aquellos que utilizan en alguna parte de su estructura números aleatorios, con el fin de lograr las mismas posibilidades frente a cualquier caso. Es entonces, enfocado a nuestro proyecto, necesario utilizar la aleatoriedad para obtener una mejor probabilidad. Por lo expuesto, se procede a elaborar un seudocódigo para hallar la mediana de manera aleatoria con la idea de poder transcribirlo a cualquier lenguaje de programación, en nuestro caso en lenguaje R. Para hallar la mediana de un conjunto de datos, se deben de utilizar un algoritmo de ordenamiento y de búsqueda, ya que no se sabe si el conjunto de datos está ordenado. Para ello se analiza primero los algoritmos de búsqueda. Aplicado a nuestro objetivo sería ineficiente buscar secuencialmente la mediana, ya que no necesitamos recorrer toda la cadena para hallarlo, aun peor cuando no está ordenado. Igualmente pasaría con un algoritmo de búsqueda binaria, ya que de estar ordenado tan solo se necesitaría devolver. Entonces, es necesario implementar algún algoritmo de ordenamiento.
-Como se presentó anteriormente, existen diferentes tipos de algoritmos de ordenamiento. Para escoger el más indicado se debe tomar en cuenta el tiempo de ejecución, es decir cuánto tiempo demora en ordenar todo el conjunto de datos. Para ello se utiliza la gran $O$ como determinante para el análisis de los tiempos. Se tiene algoritmos de ordenamiento en $O(n^2)$, $O(n\log n)$ y hasta $O(n)$. 
+Como se presentó anteriormente, existen diferentes tipos de algoritmos de ordenamiento. Para escoger el más indicado se debe tomar en cuenta el tiempo de ejecución, es decir cuánto tiempo demora en ordenar todo el conjunto de datos. Para ello se utiliza la gran $O$ como determinante para el análisis de los tiempos. Se tiene algoritmos de ordenamiento en $O(n^2)$, $O(n\log_{2}n)$ y hasta $O(n)$. 
 Sin embargo, no es necesario ordenarlo todo para hallarlo. Para ello se podría ordenar hasta $n/2$ de forma secuencial sin problema alguno y el resto dejarlo tal como estaba. Podría ser una solución buena, pero se puede mejorar aún más. Si analizamos la estructura del Quicksort, nos puede ayudar en la búsqueda de la mediana, el cual cuenta con dos funciones:
 *La función ``PARTICION'' tiene como entrada $A$, $p$ y $r$. $A$ es una cadena de elementos de tamaño $n$, $p$ es la posición inicial relativa y $r$ es una posición final relativa. La función se encarga de seleccionar un pivote, el cual es el último elemento en la cadena, en donde se una separación de los números en comparación con el pivote, donde los menores irán a la izquierda y los mayores a la derecha. Por último, el pivote intercambia de posición con el primer mayor encontrado, y devuelve esa posición.
 
@@ -92,6 +117,24 @@ Sin embargo, no es necesario ordenarlo todo para hallarlo. Para ello se podría 
 %\end{algorithm}
 
 %\section{Agradecimientos}
+
+<<boring-random>>=
+set.seed(1121)
+(x=rnorm(20))
+mean(x);var(x)
+@
+
+The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
+and histograms recorded by the PDF device:
+
+<<boring-plots, fig.width=4, fig.height=4, out.width='.4\\linewidth'>>=
+## two plots side by side (option fig.show='hold')
+par(mar=c(4,4,.1,.1),cex.lab=.95,cex.axis=.9,mgp=c(2,.7,0),tcl=-.3,las=1)
+boxplot(x)
+hist(x,main='')
+@
+
+\lipsum[1-5]
 
 \end{document}
 Buscar los método de contraste de mediana y moda.
