@@ -76,7 +76,7 @@ Av. Túpac Amaru 210, Rímac, Lima 25, Perú\\
 Email: \IEEEauthorrefmark{1}erwinleo\textunderscore 98@hotmail.com,
 \IEEEauthorrefmark{2}caznaranl@uni.pe,
 \IEEEauthorrefmark{3}miller\textunderscore silva\textunderscore 96@hotmail.com,
-\IEEEauthorrefmark{4}jesuz.jz@gmail.com}}
+\IEEEauthorrefmark{4}jjaureguia@uni.pe}}
 
 %\thanks{El profesor César Lara Ávila}
 %\author{Michael \IEEEmembership{Member,~IEEE,\thanks{M}}}
@@ -99,8 +99,22 @@ No hay persona en el mundo que no se haya valido en la Estadística y Probabilid
 
 % TODO: (JAUREGUI) Completar 
 %\begin{definition}[Percentil]
-%Es un valor
+%Es una medida de posición, donde Percentil i es aquel valor P_{i} que deja a su izquierda el $i%$ y el resto por encima de los valores de la muestra ordenada de menor a mayor, de esta forma el valor de la mediana es representada como el Percentil 50 P_{50}.
 %\end{definition}
+
+%\begin{Cálculo de percentiles}[Caso Continuo]
+
+\begin{enumerate}
+				
+				\item 	Construir la tabla de porcentajes acumulados $P_{l}$
+				\item	Ubicar el $ 50\% $ tal que: $$ P_{i-1} \leq l \leq P_{i} $$
+				\item   $L_{i-1}$ y $L_{i}$ son los límites inferior y superior del intervalo correspondientes a $P_{i-1}$ y $P_{i}$ respectivamente.
+		
+			\end{enumerate}
+		
+			Entonces el percentil $p_{l}$ se calcula mediante la siguiente fórmula: $$ p_{l} = L_{i-1} + \frac{l - P_{i-1}}{P_{i} + P_{i-1}} (L_{i} - L_{i-1})$$
+
+%\end{Cálculo de percentiles}
 
 %\begin{definition}[Mediana de una distribución]
 %Es un valor $x_m$ de $\mathbb{X}$ tal que el $50\%$ de los posibles valores de $X$ están por debajo de $x_m$ y el $50\%$ de los posibles valores de $\mathbb{X}$ están por arriba de $x_m$.
