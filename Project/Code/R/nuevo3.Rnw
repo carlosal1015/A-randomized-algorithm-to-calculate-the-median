@@ -23,11 +23,12 @@ Jesús Jáuregui Alvarado\IEEEauthorrefmark{4}}
 \IEEEauthorblockA{\\Facultad de Ciencias,
 Universidad Nacional de Ingeniería\\
 Av. Túpac Amaru 210, Rímac, Lima 25, Perú\\
-Email: \IEEEauthorrefmark{1}erwinleo\textunderscore 98@hotmail.com,
-\IEEEauthorrefmark{2}caznaranl@uni.pe,
-\IEEEauthorrefmark{3}miller\textunderscore silva\textunderscore 96@hotmail.com,
-\IEEEauthorrefmark{4}jesuz.jz@gmail.com}}
+Email: \IEEEauthorrefmark{1}erwinleo\textunderscore 98\MVAt hotmail.com,
+\IEEEauthorrefmark{2}caznaranl\MVAt uni.pe,
+\IEEEauthorrefmark{3}miller\textunderscore silva\textunderscore 96\MVAt hotmail.com,
+\IEEEauthorrefmark{4}jjaureguia\MVAt uni.pe}}
 
+\newcommand{\MVAt}{{\usefont{U}{mvs}{m}{n}\symbol{`@}}}
 %\thanks{El profesor César Lara Ávila}
 %\author{Michael \IEEEmembership{Member,~IEEE,\thanks{M}}}
 
@@ -45,26 +46,21 @@ Email: \IEEEauthorrefmark{1}erwinleo\textunderscore 98@hotmail.com,
 \section{Introducción}
 No hay persona en el mundo que no se haya valido en la Estadística y Probabilidad en algún momento de su vida, desde calcular el tiempo promedio al salir de su casa a esperar el bus para dirigirse al trabajo, pasando por juegos de azar, hasta realizar complejos cálculos para pronosticar resultados futuros para invertir en la bolsa. En el mundo de la estadística existen distintas medidas de tendencia central, entre las más comunes se encuentran; la media, la mediana y la moda, en este reporte nos enfocaremos en la Mediana, repasando desde su origen, importancia y sus aplicaciones en la vida, mediante un ejemplo con datos estadísticos recogidos desde (\textbf{Aún no se ha definido la muestra sobre la cual se va a realizar la experimentación}), entonces al finalizar de leer este reporte usted sabrá como y cuando utilizar la mediana como medida de tendencia central, así mismo le mostraremos como implementar un código en R que realice este procedimiento de la manera más eficientemente posible.
 %\section{Definiciones}
-
 % TODO: (JAUREGUI) Completar 
 \begin{definition}[Percentil]
-Es una medida de posición, donde Percentil i es aquel valor P_{i} que deja a su izquierda el $i%$ y el resto por encima de los valores de la muestra ordenada de menor a mayor, de esta forma el valor de la mediana es representada como el Percentil 50 P_{50}.
+Es una medida de posición, donde Percentil i es aquel valor $P_{i}$ que deja a su izquierda el $i$ y el resto por encima de los valores de la muestra ordenada de menor a mayor, de esta forma el valor de la mediana es representada como el Percentil $50$,  $P_{50}$.
 \end{definition}
 
-\begin{Cálculo de percentiles}[Caso Continuo]
+\begin{definition}[Cálculo de percentiles (Caso Continuo)]
 
 \begin{enumerate}
-				
-				\item 	Construir la tabla de porcentajes acumulados $P_{l}$
-				\item	Ubicar el $ 50\% $ tal que: $$ P_{i-1} \leq l \leq P_{i} $$
-				\item   $L_{i-1}$ y $L_{i}$ son los límites inferior y superior del intervalo correspondientes a $P_{i-1}$ y $P_{i}$ respectivamente.
+	\item Construir la tabla de porcentajes acumulados $P_{l}$.
+	\item	Ubicar el $50$\% tal que: $$ P_{i-1} \leq l\leq P_{i} $$.
+	\item $L_{i-1}$ y $L_{i}$ son los límites inferior y superior del intervalo correspondientes a $P_{i-1}$ y $P_{i}$ respectivamente.
+\end{enumerate}
 		
-			\end{enumerate}
-		
-			Entonces el percentil $p_{l}$ se calcula mediante la siguiente fórmula: $$ p_{l} = L_{i-1} + \frac{l - P_{i-1}}{P_{i} + P_{i-1}} (L_{i} - L_{i-1})$$
-
-\end{Cálculo de percentiles}
-
+Entonces el percentil $p_{l}$ se calcula mediante la siguiente fórmula: $$ p_{l} = L_{i-1} + \frac{l - P_{i-1}}{P_{i} + P_{i-1}} (L_{i} - L_{i-1}).$$
+\end{definition}
 %\begin{definition}[Mediana de una distribución]
 %Es un valor $x_m$ de $\mathbb{X}$ tal que el $50\%$ de los posibles valores de $X$ están por debajo de $x_m$ y el $50\%$ de los posibles valores de $\mathbb{X}$ están por arriba de $x_m$.
 %\end{definition}
@@ -147,8 +143,5 @@ par(mar=c(4,4,.1,.1),cex.lab=.95,cex.axis=.9,mgp=c(2,.7,0),tcl=-.3,las=1)
 boxplot(x)
 hist(x,main='')
 @
-
-\lipsum[1-5]
-
 \end{document}
 Buscar los método de contraste de mediana y moda.
