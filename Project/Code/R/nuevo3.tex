@@ -162,20 +162,20 @@ Como se presentó anteriormente, existen diferentes tipos de algoritmos de orden
 Sin embargo, no es necesario ordenarlo todo para hallarlo. Para ello se podría ordenar hasta $n/2$ de forma secuencial sin problema alguno y el resto dejarlo tal como estaba. Podría ser una solución buena, pero se puede mejorar aún más. Si analizamos la estructura del Quicksort, nos puede ayudar en la búsqueda de la mediana, el cual cuenta con dos funciones:
 *La función ``PARTICION'' tiene como entrada $A$, $p$ y $r$. $A$ es una cadena de elementos de tamaño $n$, $p$ es la posición inicial relativa y $r$ es una posición final relativa. La función se encarga de seleccionar un pivote, el cual es el último elemento en la cadena, en donde se una separación de los números en comparación con el pivote, donde los menores irán a la izquierda y los mayores a la derecha. Por último, el pivote intercambia de posición con el primer mayor encontrado, y devuelve esa posición.
 
-%\begin{algorithm}[ht]
-%	\caption{Épsilon de la máquina}
-%	\begin{algorithmic}[1]
-%		\For{k}{1}{100}
-%		\State $s \gets  0.5*s$
-%		\State $t \gets s+1.0$
-%		\If{ $t \leq 1.0$ }
-%		\State $s \gets 2.0*s$
-%		\State Escribir $k-1$, $s$
-%		\State Salir
-%		\EndIf
-%		\EndFor
-%	\end{algorithmic}
-%\end{algorithm}
+\begin{algorithm}[ht]
+\caption{Épsilon de la máquina}
+\begin{algorithmic}[1]
+	\For{k}{1}{100}
+	\State $s \gets  0.5*s$
+	\State $t \gets s+1.0$
+	\If{ $t \leq 1.0$ }
+	\State $s \gets 2.0*s$
+	\State Escribir $k-1$, $s$
+	\State Salir
+	\EndIf
+	\EndFor
+\end{algorithmic}
+\end{algorithm}
 
 %\section{Agradecimientos}
 
