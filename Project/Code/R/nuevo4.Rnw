@@ -12,6 +12,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{lipsum}
+\usepackage{multicol}
 \floatname{algorithm}{Algoritmo}
 
 \theoremstyle{definition}
@@ -43,10 +44,34 @@ Email: \IEEEauthorrefmark{1}erwinleo\textunderscore 98\MVAt hotmail.com,
 %Cuantil, Percentil, Mediana, Quick Sort, Heap Sort.
 %\end{IEEEkeywords}
 % TODO: Después de introducción que esté en dos columnas.
+
+%\begin{multicols}{0} 
 \section{Introducción}
 No hay persona en el mundo que no se haya valido en la Estadística y Probabilidad en algún momento de su vida, desde calcular el tiempo promedio al salir de su casa a esperar el bus para dirigirse al trabajo, pasando por juegos de azar, hasta realizar complejos cálculos para pronosticar resultados futuros para invertir en la bolsa. En el mundo de la estadística existen distintas medidas de tendencia central, entre las más comunes se encuentran; la media, la mediana y la moda, en este reporte nos enfocaremos en la Mediana, repasando desde su origen, importancia y sus aplicaciones en la vida, mediante un ejemplo con datos estadísticos recogidos desde (\textbf{Aún no se ha definido la muestra sobre la cual se va a realizar la experimentación}), entonces al finalizar de leer este reporte usted sabrá como y cuando utilizar la mediana como medida de tendencia central, así mismo le mostraremos como implementar un código en R que realice este procedimiento de la manera más eficientemente posible.
+%\end{multicols}
+
+\section{Resumen}
+*Motivación/Objetivo* En el ámbito de la estadística y probabilidad existe controversia sobre cuándo utilizar la mediana como medida de tendencia central. El objetivo de este artículo es valorar mediante un programa en R su utilidad. 
+*Metodología* Para poder llevar a cabo esta investigación, se han revisado artículos científicos similares y consultado la base de datos de “data.worldbank.org” World Bank Open Data, ScienceDirect y otros de donde extrajimos la muestra para la experimentación.
+*Experimentación/ Conclusion’s * Después de haber probado diferentes métodos para el cálculo aleatorizado de la mediana, llamamos “randomquicksort” a nuestro programa más eficiente.
+
+*Discusión/Interprestacion de los resultados* cuando hacemos la experimentación con la muestra de los caballos para hacer la discusión >:v
+
+Palabras clave: 
+tendencia central, mediana, algoritmo aleatorizado, randomquicksort
+
+\section{Abstract}
+*Motivación/Objetivo* In the field of statistics and probability there is controversy about when to use the median as a measure of central tendency. The objective of this article is to evaluate its usefulness through a program in R.
+*Metodología* In order to carry out this research, we have reviewed similar scientific articles and consulted the database of "data.worldbank.org" World Bank Open Data, ScienceDirect and others from where we extracted the sample for experimentation.
+*Experimentación/ Conclusion’s * After having tried different methods for the randomized calculation of the median, we call "randomquicksort" to our most efficient program.
+
+*Discusión/Interprestacion de los resultados* Help me'
+
+Keywords:
+central tendency, median, randomized algorithm, randomquicksort
+
 %\section{Definiciones}
-% TODO: (JAUREGUI) Completar 
+% TODO: (JAUREGUI) Completado 
 \begin{definition}[Percentil]
 Es una medida de posición, donde Percentil i es aquel valor $P_{i}$ que deja a su izquierda el $i$ y el resto por encima de los valores de la muestra ordenada de menor a mayor, de esta forma el valor de la mediana es representada como el Percentil $50$,  $P_{50}$.
 \end{definition}
