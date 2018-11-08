@@ -1,0 +1,9 @@
+﻿ABSTRACT:
+*Motivación/Objetivo* In the field of statistics and probability there is controversy about when to use the median as a measure of central tendency. The objective of this article is to evaluate its usefulness through a program in R.
+*Metodología* In order to carry out this research, we have reviewed similar scientific articles and consulted the database of "data.worldbank.org" World Bank Open Data, ScienceDirect and others from where we extracted the sample for experimentation.
+*Experimentación/ Conclusion’s * After having tried different methods for the randomized calculation of the median, we call "randomquicksort" to our most efficient program.
+
+*Discusión/Interprestacion de los resultados* Help me'
+
+Keywords:
+central tendency, median, randomized algorithm, randomquicksort

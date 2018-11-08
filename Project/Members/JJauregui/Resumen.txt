@@ -1,10 +1,11 @@
 ﻿Permite al lector tener una idea clara sobre el artículo o la investigación propuesta, sin necesidad de leerlo completamente.
 Este se ubica al inicio del artículo, sin embargo, es la última sección que se escribe.
 
-RESUMEN:
 *Motivación/Objetivo* En el ámbito de la estadística y probabilidad existe controversia sobre cuándo utilizar la mediana como medida de tendencia central. El objetivo de este artículo es valorar mediante un programa en R su utilidad. 
-*Metodología*Para poder llevar a cabo esta investigación, se han revisado artículos científicos similares y consultado la base de datos de “data.worldbank.org” World Bank Open Data, ScienceDirect y (algún otro del cual no estoy enterado >:v), de donde extrajimos la muestra.
+*Metodología* Para poder llevar a cabo esta investigación, se han revisado artículos científicos similares y consultado la base de datos de “data.worldbank.org” World Bank Open Data, ScienceDirect y otros de donde extrajimos la muestra para la experimentación.
 *Experimentación/ Conclusion’s * Después de haber probado diferentes métodos para el cálculo aleatorizado de la mediana, llamamos “randomquicksort” a nuestro programa más eficiente.
+
+*Discusión/Interprestacion de los resultados* cuando hacemos la experimentación con la muestra de los caballos para hacer la discusión >:v
 
 Palabras clave: 
 tendencia central, mediana, algoritmo aleatorizado, randomquicksort
