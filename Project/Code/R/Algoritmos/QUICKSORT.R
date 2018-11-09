@@ -9,7 +9,8 @@ cambio <- function(A,i,j){
 
 
 quick <- function(A,p,r){
-  
+# p: inicial
+# r: final
   if(p < r){
     
     ####comienza partition######
@@ -45,14 +46,18 @@ quick <- function(A,p,r){
 
 ####comienza el main#####
 #### ejemplo basico #####
-v <- c(2,90,6,4,7,5)
-print(v)
+#v <- c(2,90,6,4,7,5)
+v_1 <- rnorm(500,0.1,1)
+#print(v)
+print(v_1)
 
 #v <- cambio(v,1,2)
 #v <- partition(v,1,5)
 
-v <- quick(v,1,6)
+#v <- quick(v,1,6)
+v_1 <- quick(v_1,1,length(v_1))
 
-print(v)
+#print(v)
+print(v_1)
 
 ####termina el main#####
