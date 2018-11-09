@@ -1,0 +1,17 @@
+\documentclass[a4 paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumerate}
+
+\begin{document}
+	\section*{ESTADO DEL ARTE}
+	\begin{itemize}
+		\item El primer algoritmo aleatorizado fue un método desarrollado por Michael O. Rabin para el problema de par más cercano en la geometría computacional:
+		\begin{center}
+			"Dados $n$ puntos en un espacio métrico, encuentre un par de puntos con la menor distancia entre ellos "
+		\end{center}
+		Un algoritmo ingénuo para encontrar distancias entre todos los pares de puntos en un espacio de dimensión $d$ y seleccionar el mínimo requiere $O(n^2)$ tiempo y se puede resolver en 
+		$O(n\log n)$ tiempo en un espacio euclidiano. En el modelo computacional que asume que la función de piso es computable en tiempo constante, el problema se puede resolver en el tiempo $O(n\log(\log n) )$. Si permitimos que la aleatorización se use junto con la función de piso, el problema se puede resolver en el tiempo $O(n)$.
+		\item Michael O. Rabin demostró que la prueba de primalidad de Miller de $1976$ se puede convertir en un algoritmo aleatorizado. En ese momento, no se conocía ningún algoritmo determinístico práctico para la primalidad.
+		\item Actualmente existen varios algoritmos aleatorios para encontrar la mediana, cada algoritmo se diferencia en su procedimiento para ordenar los datos aleatorios. Los algoritmos más usados por su eficacia y eficiencia para ordenar datos son  mergesort,  heapsort y quicksort. 
+	\end{itemize}
+\end{document}
