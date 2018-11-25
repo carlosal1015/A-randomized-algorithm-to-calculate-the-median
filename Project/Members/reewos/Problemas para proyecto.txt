@@ -1,0 +1,58 @@
+1. Estudio del clima:
+
+http://akiraforeber.cl.tripod.com/texto17.htm
+
+"Una aplicación muy importante de la mediana está en los estudios climáticos. Por ejemplo: Para la agricultura en zona de precipitaciones muy variables.
+Por tal razón se ve que en las informaciones climáticas que se suelen dar después de las lluvias se hable mejor de la mediana y no de media aritmética; pues está influenciada notablemente por un año lluvioso, en cambio la mediana no. Además se da con más facilidad el resultado de la mediana que la media aritmética, pues basta con ubicar la nueva lluvia en la fila ordenada de las lluvias."
+
+
+
+2. Mediana en el campo de la astronomia
+
+http://iopscience.iop.org/article/10.1086/662131/meta
+
+"Median Statistics and the Hubble Constant"
+
+https://es.wikipedia.org/wiki/Ley_de_Hubble
+
+"Es una ley de la física que establece que el corrimiento al rojo de una galaxia es proporcional a la distancia a la que está. Se considera la primera evidencia observacional del paradigma de la expansión del universo y actualmente sirve como una de las piezas más citadas como prueba de soporte de la Gran Explosión (Big Bang)."
+
+
+
+3. Mediana en medicina
+
+https://onlinelibrary.wiley.com/doi/full/10.1002/gepi.21965
+
+"Consistent Estimation in Mendelian Randomization with Some Invalid Instruments Using a Weighted Median Estimator"
+
+
+
+4. Mediana procesamiento digital imagenes
+
+https://es.wikipedia.org/wiki/Procesamiento_digital_de_im%C3%A1genes
+
+"Suavizamiento tipo mediana (es mucho mejor que el suavizamiento tipo media)."
+
+http://arantxa.ii.uam.es/~tacc1/mm_05/Slides/2per_page_pdf/J/07.pdf
+(Aqui se explica mejor )
+
+"Se utiliza para reducir ruido en una imagen, igual que en el caso del filtrado por la media. Sin embargo suele funcionar mejor ya que conserva detalles significativos de la imagen."
+
+https://es.wikipedia.org/wiki/Ruido_en_la_fotograf%C3%ADa_digital
+(Aqui se explica que es el ruido digital)
+
+"El ruido digital es la variación aleatoria (que no se corresponde con la realidad) del brillo o el color en las imágenes digitales producido por el dispositivo de entrada (la cámara digital en este caso)."
+
+
+
+5. Propiedades de la Mediana
+
+https://educacion.elpensante.com/uso-de-la-mediana-estadistica/
+
+"Propiedades de la Mediana Estadística
+Así mismo, la Estadística distingue entre varias de las propiedades, que posee esta entidad, entre las cuales se pueden nombrar las siguientes:
+
+En primer lugar, la Mediana –aun cuando no puede ser usada en desarrollos algebraicos- sí cuenta con la propiedad de destacar los valores individuales de los números pertenecientes a al grupo del cual se ha tomado el valor central.
+Así mismo, el hecho de depender del orden de los números y no de los distintos valores que tome una variable, hace que la Mediana está exenta de observaciones extremas.
+No obstante, el mismo hecho de sólo considerar el orden jerárquico que asumen los datos numéricos, hacen que la Mediana Estadística sea considerada también como una aplicación limitada, pues no estaría tomando en cuenta alguna propiedad de los datos, sólo su orden."
+
