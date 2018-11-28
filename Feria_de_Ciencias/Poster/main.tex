@@ -1,19 +1,8 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% MUW Poster
-% LaTeX Template
-% Version 1.0 (31/08/2016)
-% (Based on Version 1.0 (31/08/2015) of the Jacobs Portrait Poster
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-% Created by:
-% Nicolas Ballarini, CeMSIIS, Medical University of Vienna
-% nicoballarini@gmail.com
-% http://statistics.msi.meduniwien.ac.at/
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
+% arara: lualatex
+% arara: bibtex
+% arara: bibtex
+% arara: lualatex
+% arara: clean: {extensions: ['log','out','snm','blg','bbl','nav','aux','toc']}
 \def\footer#1{\def\insertfooter{#1}}
 %--------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
@@ -21,13 +10,11 @@
 
 \documentclass[final]{beamer}
 
-
-
 \usepackage[scale=1.150]{beamerposter} % Use the beamerposter package
 \usetheme{MUWposter} % Use the MUWposter theme supplied with this template
 
 % Include a logo of your project if desired
-\logo{\pgfputat{\pgfxy(-11,107)}{\pgfbox[center,base]{\includegraphics[width=7cm]{ProjectLogo.png}}}}  
+\logo{\pgfputat{\pgfxy(-11,107)}{\pgfbox[center,base]{\includegraphics[width=8cm]{ABETlogo.png}}}}  
 
 \usepackage{multicol}
 \usepackage{array}
@@ -56,7 +43,7 @@
 %  Uncomment to apply colors you want to use.
 %-----------------------------------------------
 \colorlet{themecolor}{greenMUW}
-\usebackgroundtemplate{\includegraphics{MUW_green.pdf}}
+\usebackgroundtemplate{\includegraphics{UNI_skin.pdf}}
 
 %\colorlet{themecolor}{skinMUW}
 %\colorlet{themecolor}{blueMUW}
@@ -108,45 +95,47 @@
 \setbeamertemplate{frametitle}[default][left]
 %\setmainfont{Georgia}
 
-\title{Titel des Posters, Schriftgröße variabel} % Poster title
+\title{Un algoritmo aleatorizado para calcular la mediana} % Poster title
 
-\author{AutorInnen, Schriftgröße variabel} % Author(s)
-
-\institute{Klinik, Medizinische Universität Wien, Schriftgröße variabel} % Institution(s)
+\author[shortname]{E. Talla Chumpitáz\inst{1}, C. Aznarán Laos\inst{2}, M. Silva Menejes\inst{2} y J. Jáuregui Alvarado\inst{2}}
+\institute[shortinst]{\inst{1}Escuela Profesional de Ciencia de la Computación, Universidad Nacional de Ingeniería, Perú.\and
+\inst{2}Escuela Profesional de Matemática, Universidad Nacional de Ingeniería, Perú.
+}
+%\institute{Klinik, Medizinische Universität Wien, Schriftgröße variabel} % Institution(s)
 %--------------------------------------------------------------------------------------
-
-
 
 \begin{document}
 
-  \addtobeamertemplate{block end}{}{\vspace*{1ex}} % White space under blocks
-  \addtobeamertemplate{block alerted end}{}{\vspace*{0ex}} % White space under highlighted (alert) blocks
-  \setlength{\belowcaptionskip}{2ex} % White space under figures
-  \setlength\belowdisplayshortskip{1ex} % White space under equations
-  
-  
-  \begin{frame}[t] % The whole poster is enclosed in one beamer frame
+\addtobeamertemplate{block end}{}{\vspace*{1ex}} % White space under blocks
+\addtobeamertemplate{block alerted end}{}{\vspace*{0ex}} % White space under highlighted (alert) blocks
+\setlength{\belowcaptionskip}{2ex} % White space under figures
+\setlength\belowdisplayshortskip{1ex} % White space under equations
 
-      \begin{columns}[t] % The whole poster consists of two major columns
-	  
-      \begin{column}{\sepmargin}\end{column}
-      
+
+	\begin{frame}[t] % The whole poster is enclosed in one beamer frame
+
+		\begin{columns}[t] % The whole poster consists of two major columns
+
+			\begin{column}{\sepmargin}\end{column}
+
 	    \begin{column}{\onecolwid} % The first column
 
 
-		  \begin{block}{Objective}
-          %\begin{multicols}{2}
-          Uptam, offictibus rem vendipici nonsecest la cullabor moluptas exero quo blam quamentum repudistiam iunda doluptate dolorecta quatem faceaquodit optatum nonse init volori doluptas nam erferch ilique comnihil ma doluptate sanditat ommo temquia nonse sed modicium que vollacillab ius. Uptam, offictibus rem vendipici nonsecest la cullabor moluptas exero quo blam.
-          %\end{multicols}
-          \end{block}
-          
-          \begin{block}{Patients and Methods}
-          %\begin{multicols}{2}
-          Uptam, offictibus rem vendipici nonsecest la cullabor moluptas exero quo blam quamentum repudistiam iunda doluptate dolorecta quatem faceaquodit optatum nonse init volori doluptas nam erferch ilique comnihil ma doluptate sanditat ommo temquia nonse sed modicium que vollacillab ius. Uptam, offictibus rem vendipici nonsecest la cullabor moluptas exero quo blam.
-Uptam, offictibus rem vendipici nonsecest la cullabor moluptas exero quo blam quamentum repudistiam iunda doluptate dolorecta quatem faceaquodit optatum nonse init volori doluptas nam erferch ilique comnihil ma doluptate sanditat ommo temquia nonse sed modicium que vollacillab ius.
-          %\end{multicols}
-          \end{block}
-          
+			\begin{block}{Objetivos}
+       %\begin{multicols}{2}
+       \begin{itemize}
+       	\item Primer objetivo
+       	\item Segundo objetivo
+       \end{itemize}
+      %\end{multicols}
+			\end{block}
+
+			\begin{block}{Introducción}
+       %\begin{multicols}{2}
+				Uptam, offictibus rem vendipici nonsecest la cullabor moluptas exero quo blam quamentum repudistiam iunda doluptate dolorecta quatem faceaquodit optatum nonse init volori doluptas nam erferch ilique comnihil ma doluptate sanditat ommo temquia nonse sed modicium que vollacillab ius. Uptam, offictibus rem vendipici nonsecest la cullabor moluptas exero quo blam.
+       %\end{multicols}
+			\end{block}
+
           \begin{table}[ht]
 					\centering
 					\begin{tabular}{lccc}
@@ -162,7 +151,7 @@ Uptam, offictibus rem vendipici nonsecest la cullabor moluptas exero quo blam qu
 			  \end{table}
           
           
-          \begin{block}{Results}
+          \begin{block}{Método experimental}
           %\begin{multicols}{2}
           Uptam, offictibus rem vendipici nonsecest la cullabor moluptas exero quo blam quamentum repudistiam iunda doluptate dolorecta quatem faceaquodit optatum nonse init volori doluptas nam erferch ilique comnihil ma doluptate sanditat ommo temquia nonse sed modicium que vollacillab ius. Uptam, offictibus rem vendipici nonsecest la cullabor moluptas exero quo blam.
 Uptam, offictibus rem vendipici nonsecest la cullabor moluptas exero quo blam quamentum repudistiam iunda doluptate dolorecta quatem faceaquodit optatum nonse init volori doluptas nam erferch ilique comnihil ma doluptate sanditat ommo temquia nonse sed modicium que vollacillab ius. 
@@ -183,10 +172,6 @@ blam quamentum repudistiam iunda doluptate dolorecta quatem faceaquodit optatum 
                   
                   
          \begin{column}{\sepwid}  \end{column}
-         
-         
-         
-         
          \begin{column}{\onecolwid} %The second column
          
          \begin{block}{\vspace*{2.7cm}}
@@ -195,7 +180,7 @@ blam quamentum repudistiam iunda doluptate dolorecta quatem faceaquodit optatum 
           %\end{multicols}
           \end{block}
           
-          \begin{block}{ }
+          \begin{block}{}
 				\begin{figure}
                 	\vspace*{-1cm}
                     \includegraphics[width=.9\linewidth]{plot.PNG}
@@ -215,9 +200,9 @@ blam quamentum repudistiam iunda doluptate dolorecta quatem faceaquodit optatum 
 				\end{figure}
                 \end{multicols}
                 
-                \begin{figure}
-                    \includegraphics[width=.9\linewidth]{Bild4.jpg}
-				\end{figure}
+%                \begin{figure}
+%                    \includegraphics[width=.9\linewidth]{Bild4.jpg}
+%				\end{figure}
                 
 		\end{block}
       \end{column}
