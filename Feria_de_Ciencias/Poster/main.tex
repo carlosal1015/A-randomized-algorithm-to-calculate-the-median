@@ -92,7 +92,7 @@
 
 \title{Un algoritmo aleatorizado para calcular la mediana} % Poster title
 
-\author[shortname]{E. Talla Chumpitáz\inst{1}, C. Aznarán Laos\inst{2}, M. Silva Menejes\inst{2} y J. Jáuregui Alvarado\inst{2}}
+\author[shortname]{E. Talla Chumpitáz\inst{1}, C. Aznarán Laos\inst{2}, M. Silva Menejes\inst{2} y J. Jáuregui Alvarado\inst{2}.}
 \institute[shortinst]{\inst{1}Escuela Profesional de Ciencia de la Computación, Universidad Nacional de Ingeniería, Perú.\and
 \inst{2}Escuela Profesional de Matemática, Universidad Nacional de Ingeniería, Perú.
 }
@@ -116,18 +116,18 @@
 		\begin{column}{\onecolwid} % The first column
 
 			\begin{block}{Objetivos}
-				El objetivo de este trabajo es comparar diferentes algoritmos de ordenación con respecto al tiempo  que demoran en calcular la mediana de una data.
+				El objetivo de este trabajo es comparar los diferentes algoritmos de ordenación con respecto al tiempo de ejecución medio que tarda en calcular la mediana de una data.
 			\end{block}
 
 			\vspace{-0.5cm}
 
 			\begin{block}{Introducción}
-				En el mundo de la estadística existen distintas medidas de tendencia central, entre las más comunes se encuentran la \emph{media}, la \emph{mediana} y la \emph{moda}, en este reporte nos enfocaremos en la \emph{mediana}, repasando desde su origen, su importancia y sus aplicaciones en la vida, mediante un ejemplo con datos estadísticos.
+				En el mundo de la estadística existen distintas \emph{medidas de tendencia central}, entre las más comunes se encuentran la \emph{media}, la \emph{mediana} y la \emph{moda}, en este reporte nos enfocaremos en la \emph{mediana}, repasando desde su origen, su importancia y sus aplicaciones prácticas mediante un ejemplo con datos estadísticos.
 			\end{block}
 
 			\begin{block}{Metodología}% o parte experimental
 			Para hallar la mediana de un conjunto de datos, se debe de utilizar un algoritmo de \emph{ordenamiento} y de \emph{búsqueda}, ya que no se sabe si el conjunto de datos está ordenado. Para ello se analiza primero los algoritmos de \emph{búsqueda}.\\[\baselineskip]
-			Aplicado a nuestro objetivo sería ineficiente buscar secuencialmente la mediana, ya que no necesitamos recorrer toda la cadena para hallarlo, aún peor cuando no está ordenado.
+			Aplicado a nuestro objetivo sería ineficiente buscar secuencialmente la \emph{mediana}, ya que no necesitamos recorrer toda la cadena para hallarlo, aún peor cuando no está ordenado.
 			\end{block}
 
 			\vspace{-0.5cm}
@@ -136,7 +136,7 @@
 				\begin{itemize}
 					\item La aleatorización del arreglo ayudó al algoritmo \emph{quick select} a tener una complejidad $\mathcal{O}(n)$.
 
-					\item En el lenguaje de programación R, el algoritmo más eficiente es \emph{Radix}, pero al compilarlo en el lenguaje de programación C, el algoritmo más eficiente es \emph{Random Selection}.
+					\item En el lenguaje de programación R, el algoritmo más eficiente es \emph{Radix}, pero implementado en el lenguaje de programación C, el algoritmo más eficiente es \emph{Random Selection}.
 				\end{itemize}
 			\end{block}
 
@@ -147,7 +147,7 @@
 			\end{block}
 
 			\begin{block}{\large Agradecimientos}
-				Van a faltar palabras para agradecer a las personas que se han involucrado en la realización de este trabajo, sin embargo merecen reconocimiento especial a el profesor Cesar Lara Ávila que gracias a sus consejos y correcciones hoy pudimos culminar este trabajo.
+				Van a faltar palabras para agradecer a las personas que se han involucrado en la realización de este trabajo, sin embargo, el profesor Cesar Lara Ávila merece un reconocimiento especial ya que gracias a sus consejos y correcciones hoy pudimos culminar este trabajo.
       \end{block}
 
 			\begin{alertblock}{\large Información del contacto}
@@ -170,14 +170,14 @@
 		\begin{column}{\onecolwid} %The second column
 
 			\begin{block}{Resumen}
-				En el ámbito de la estadística y probabilidad existe controversia sobre cuándo utilizar la mediana como medida de tendencia central. El objetivo de este artículo es valorar mediante un programa en R su utilidad. Para poder llevar a cabo esta investigación, se han revisado artículos científicos similares y consultado la base de datos de World Bank Open Data, ScienceDirect y otros de donde extrajimos la muestra para la experimentación.\\[0.5\baselineskip]
+				En el ámbito de la estadística y probabilidad existe una controversia sobre cuándo emplear la \emph{mediana} como medida de tendencia central. El objetivo de este artículo es valorar mediante un programa en R su utilidad. Para poder llevar a cabo esta investigación, se han revisado artículos científicos similares y consultado la base de datos de World Bank Open Data, ScienceDirect y otros de donde se extrajo la muestra para la experimentación.\\[0.5\baselineskip]
 				Después de haber probado diferentes métodos para el cálculo aleatorizado de la mediana, llamamos ``random quicksort'' a nuestro programa más eficiente.
 			\end{block}
 			\vspace{-0.5cm}
 
 			\begin{block}{Resultados y discusiones}
 				La mediana es un estadístico robusto que incluso aunque los extremos de los datos se vean alterados, la mediana permanece invariable muy útil cuando se trabaja con distribuciones sesgadas.\\[0.5\baselineskip]
-				Cuando se hacen las comparaciones, en el caso de compilarlo con GCC en el lenguaje de programación C, el \emph{random quick select} es más rápido que el algoritmo de ordenación \emph{radix}, pero cuando se compila en R, \emph{radix} se obtiene $\mathcal{O}(1)$, es decir ya no depende del tamaño de datos $n$.
+				Cuando se hacen las comparaciones, el programa implementado en el lenguaje C, el \emph{random quick select} es más rápido que el algoritmo de ordenación \emph{Radix}, pero cuando se implementa en el lenguaje R, \emph{Radix} obtiene la complejidad $\mathcal{O}(1)$, es decir, ya no depende del tamaño de datos $n$.
 			\end{block}
 			\vspace{-0.8cm}
 
