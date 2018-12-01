@@ -1,0 +1,30 @@
+﻿EXTRACTO DE LA LECTURA
+
+
+Estadísticos de tendencia central: 
+Se ubican al centro de la distribución de los datos. 
+• Media aritmética (centro de gravedad de los datos) 
+• Moda (valor de la variable con mayor frecuencia) 
+• Mediana (valor central en el 50%)
+
+
+Relación entre Media, Mediana y Moda
+• Si media=moda=mediana, la distribución es simétrica 
+• Si media > mediana, la distribución es asimétrica con cola a la derecha (sesgada a la derecha). 
+• Si media < mediana, la distribución es asimétrica con cola a la izquierda (sesgada a la izquierda).
+
+
+Media vs. Mediana
+• La media es un estadístico sensible a valores extremos. Basta que algún dato dentro de la muestra sea muy alto o muy bajo, el promedio se verá alterado. 
+• La mediana, en cambio, es un estadístico robusto. Aunque los extremos de los datos se vean alterados, la mediana permanece invariable.
+
+
+Rango entre Cuartiles
+• Así como el promedio es una medida de tendencia central que no es resistente a las observaciones extremas, la desviación estándar, que usa el promedio en su definición, tampoco es una medida de dispersión resistente a valores extremos. 
+• Tenemos argumentos estadísticos para demostrar por qué dividimos por n − 1 en vez de n en el denominador de la varianza muestral. 
+• Rango entre cuartiles La diferencia entre el tercer cuartil y el primer cuartil se llama rango entre cuartiles, denotado por RQ=Q3-Q1. El rango entre cuartiles mide la variabilidad de la mitad central de los datos.
+
+
+¿Qué es variabilidad?
+• Algunas personas asocian variabilidad con rango mientras que otras asocian variabilidad con cómo difieren los valores de la media. Hay muchas medidas de variabilidad, y la desviación estándar es la más usada. Pero recuerden que una distribución con la menor desviación estándar no es necesariamente la distribución que es menos variable con respecto a otras definiciones de variabilidad. 
+• Resumen: Cuando queremos describir una variable usamos alguna medida de posición central y una medida de dispersión. El par de medidas más comúnmente usado es la media aritmética y la desviación estándar. Pero vimos que cuando la distribución de las observaciones es sesgada, la media no es una buena medida de posición central y preferimos la mediana. La mediana en general va acompañada del rango como medida de dispersión. Pero cuando observamos valores extraños (extremos) el rango se ve muy afectado, por lo que preferimos usar el rango entre cuartiles. 

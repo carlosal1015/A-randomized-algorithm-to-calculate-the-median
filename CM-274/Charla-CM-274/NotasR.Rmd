@@ -1,0 +1,736 @@
+---
+title: "Notas de R"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R básico: Aplicación de R a las probabilidades elementales
+
+* Operaciones básicas
+* Funciones de `R` para probabilidades básicas. Muestreo aleatorio.
+* Flujo de control y bucles.
+
+### Mostramos los eventos de un espacio muestral
+
+El paquete `sets` realiza operaciones básicas de conjuntos y ciertas generalizaciones
+
+```{r, eval=FALSE, comment=NA}
+#install.packages("sets")
+```
+```{r, comment=NA}
+library(sets)
+Omega = set("C", "S")
+# Muestra un conjunto de todos los posibles eventos de un experimento de 
+# un espacio muestral Omega
+2^Omega
+```
+
+```{r, comment=NA}
+Omega = set("a", "b", "c")
+2^Omega
+```
+
+### Función de probabilidad 
+
+```{r, comment=NA}
+# Espacio muestral
+Omega = c(1, 2, 3, 4)
+# probabilidad de 4  eventos elementales
+p = c(1/2, 1/4, 1/8, 1/8)
+# ellos suman 
+sum(p)
+```
+
+
+### Generamos todas las posibles 3-tuplas de $S_1 = \{1, 2 \}$ , $S_2 = \{1, 2, 3\}$ y $S_3 = \{1, 2\}$
+
+```{r, comment=NA}
+help("expand.grid")
+expand.grid(S1 = 1:2, S2 = 1:3, S3 = 1:2)
+```
+
+### Contando el número de combinaciones
+
+ Para calcular el número  de combinaciones  de `n` ítems tomando `k` ítems a la vez, usamos la función `choose(n,k)`. El número dado es $n!/(n -k)!k!$.
+ 
+ 
+```{r,comment=NA}
+help("choose")
+choose(5, 3)
+```
+
+```{r, comment=NA}
+choose(50, 13)
+```
+
+```{r, comment=NA}
+choose(50, 30)
+```
+
+### Generando combinaciones
+
+Generalizamos todas las combinaciones  de `n` ítems tomando `k` ítems  a la vez, usando la función `combn(items, k)`.
+
+```{r, comment=NA}
+help("combn")
+combn(1:5, 3)
+```
+
+```{r, comment=NA}
+combn(c("T1","T2","T3","T4","T5"), 3)
+```
+
+### Generando números aleatorios
+
+Si tu quieres generar números aleatorios, usa `r?` donde ? es una de las distribuciones  listada en la tabla de arriba.
+
+```{r, comment=NA}
+help("runif")
+runif(10)
+```
+
+```{r, comment=NA}
+runif(10, min = -2, max = 2)
+```
+
+```{r, comment=NA}
+help("rnorm")
+rnorm(10)
+```
+
+```{r, comment=NA}
+rnorm(10, mean=100, sd=15)
+```
+
+```{r, comment=NA}
+help("rbinom")
+rbinom(10, size=10, prob=0.5)
+```
+
+```{r, comment=NA}
+help("rpois")
+rpois(10, lambda=10)
+```
+```{r, comment=NA}
+help("rexp")
+rexp(9, rate =0.1)
+```
+
+```{r, comment=NA}
+help("rgamma")
+rgamma(9, shape=2, rate=0.1)
+```
+
+```{r, comment=NA}
+rnorm(3, mean = c(-10, 0, 10), sd = 1)
+```
+
+### Generando una muestra aleatoria 
+
+Si se desea una muestra aleatoria, podemos utilizar la función `sample(vec, n)`
+
+```{r, comment=NA}
+help("sample")
+sample(airquality$Wind, 10)
+```
+
+La función `sample` normalmente reliza muestras sin reemplazo, lo que significa que no seleccionará el mismo elemento dos veces. Algunos procedimientos estadísticos (especialmente el bootstrap) requieren muestreo con reemplazo, lo que significa que un elemento puede aparecer varias veces en la muestra. Especificando  `replace = TRUE` en  `sample` con reemplazo.
+
+Es fácil implementar un bootstrap simple mediante el muestreo con reemplazo. Este fragmento de código muestra repetidamente un conjunto de datos xy calcula la mediana de la  muestra:
+
+```{r, eval=FALSE}
+medianas <- numeric(1000)
+for (i in 1:1000) {
+medianas[i] <- median(sample(x, replace=TRUE))
+}
+```
+
+A partir de las estimaciones de bootstrap, podemos estimar el intervalo de confianza para la mediana:
+
+```{r,eval=FALSE}
+ci <- quantile(medians, c(0.025, 0.975))
+cat("El intervalo de confianza 95% es (", ci, ")\n")
+```
+
+
+### Generación de números aleatorios reproducibles
+
+Si se desea generar una secuencia de números aleatorios, pero desea reproducir la misma secuencia cada vez que se ejecuta el programa.
+
+Antes de ejecutar su código R, llame a la función `set.seed` para inicializar el generador de números aleatorios a un estado conocido:
+
+```{r, eval=FALSE}
+set.seed(1978)
+```
+
+### Generando secuencias aleatorias
+
+Puedes generar secuencias aleatorias, tales como la simulación del lanzamiento de una moneda o otro ensayo de Bernoulli.
+
+
+Usamos `sample(set, n, replace=TRUE)`
+
+```{r, comment=NA}
+sample(c("H","T"), 10, replace=TRUE)
+```
+
+```{r, comment=NA}
+ sample(c(FALSE,TRUE), 20, replace=TRUE)
+```
+
+```{r, comment=NA}
+sample(c(FALSE,TRUE), 20, replace=TRUE, prob=c(0.2,0.8))
+
+```
+
+### Permutar  aleatoriamente un vector
+
+Si se desea generar una permutación aleatoria de un vector. Si `v` es un  vector, entonces la `sample(v)` devuelve una permutación aleatoria. La función  `sample(v)` es equivalente a `sample(v, size = length (v), replace = FALSE)`
+
+```{r, comment=NA}
+sample(1:12)
+```
+
+```{r}
+sample(letters[1:10])
+```
+
+
+## Estructuras básicas de programación
+
+
+### Flujo de control
+
+#### If-else
+
+```{r, eval =FALSE}
+if(FALSE)
+{
+    message("Esto no se ejecuta....")
+} else
+{
+    message("esto deberia ejecutarse.")
+}
+
+
+```
+#### ifelse
+
+
+```{r, eval=FALSE}
+(r <- round(rnorm(2), 1))
+
+(x <- r[1] / r[2])
+
+if(is.nan(x))
+{
+    message("x es un NA")
+} else if(is.infinite(x))
+{
+    message("x es infinito")
+} else if(x > 0)
+{
+    message("x es positivo")
+} else if(x < 0)
+{
+    message("x es negativo")
+} else
+{
+    message("x es cerp")
+}
+```
+
+
+### Bucles
+
+#### while
+
+```{r, eval=FALSE}
+accion <- sample(
+    c(
+        "Aprender R",
+        "Estudiar CM-274",
+        "Leer el manga de One Piece",
+        "Salir con Jessica"
+    ),
+    1
+)
+
+while(accion != "Salir con Jessica"){
+    
+    message("Hoy es un buen dia")
+     accion <- sample(
+        c(
+            "Aprender R",
+            "Estudiar CM-274",
+            "Leer el manga de One Piece",
+            "Salir con Jessica"
+        ),
+        1
+    )
+    message("accion = ", accion)
+}
+```
+
+
+Un ejemplo numérico del uso de while con los caminos aleatorios unidimensionales **[https://es.wikipedia.org/wiki/Camino_aleatorio](https://es.wikipedia.org/wiki/Camino_aleatorio)**.
+
+
+
+```{r, eval=FALSE}
+# Un camino aleatorio con While
+
+x=0
+n=0
+set.seed(333)
+while (x <= 10) {
+  n=n+1
+  x=x+rnorm(1,mean=.5,sd=1)
+  }
+
+print(paste ("n = ", n, ", x = ",round(x,2) ))
+```
+
+
+#### For
+
+El bucle `for` acepta una variable de iteración y un vector. La sintaxis para el bucle `for` es
+
+```
+  for (nombre in valores ) expresion
+```
+
+El bucle `for`, iteraciona a través de los componentes nombre de valores uno a la vez. En el ejemplo anterior `nombre` toma el valor de cada elemento sucesivo de `valores`, hasta que se complete sus componentes.
+
+
+```{r,comment=NA}
+lenguajes <- c("Python", "JS", "C", "C++", "R", "Bash")
+for(l in lenguajes){
+  print(l)
+}
+```
+
+
+
+
+## Ejercicios
+
+1 . Usa R, para calcular las respuesta numéricas de lo siguiente:
+
+
+ * $1 + 2(3 + 4)$
+ * $4^3 + 3^{2 +1}$
+ * $\sqrt{(4 + 3)(2 +1)}$
+ * $\biggl( \frac{1 +2}{3 + 4}\biggr)^2$
+
+2 . La función `sd` calcula la desviación estándar. Calcula la desviación estándar desde el $0$ al $100$.
+
+3 . Vea la demostración de símbolos matemáticos, usando `demo(plotmath)`.
+
+4 .  Genera aleatoriamente $1.000$ mascotas , de las opciones `perro`, `gato`, `pollo` y `pez dorado`, con la misma probabilidad de que cada uno sea elegido. Muestra los primeros valores de la variable resultante y cuente el número de cada tipo de mascota.
+
+
+5 . La *Conjetura de Collatz* señala que para todo número natural $n$, si se realiza la siguiente recursión:
+$$ f(n) = \left\{ \begin{array}{cc} 3n+1 &n = 2k+1 \\ \frac{n}{2} &n=2k \end{array} \right. $$
+Siempre se llegará a 1 luego de cierta cantidad de iteraciones. Para hallar la cantidad de pasos de un número se usa la siguiente iteración:
+
+```{r, eval=FALSE}
+n <- 100
+pasos <- 1
+while(n!=1){
+    if(n %% 2 == 0){
+        n <- n/2
+    } else {
+        n <- 3*n + 1
+    }
+    pasos <- pasos + 1
+}
+print(pasos)
+```
+
+Diseña un programa que halle la secuencia de menor longitud de entre los números en el rango $[100,200]$ y además determine cuál es esa secuencia.
+
+6 . Jessica estaba estudiando teoría de números y aprendió el algoritmo de Euclides, pero en la clase estaba tan concentrada  que no llegó a apuntar correctamente el algoritmo dado por su profesor. A pesar de todo, ella recuerda exactamente todas las líneas, pero no el orden correcto. Dadas las siguientes líneas de código, reconstruya el algoritmo de Euclides iterativo y use $a = 10^5+3$ y $b=10^8+9$:
+
+```{r, eval=FALSE}
+a <- 1001
+b <- 7
+while(b!=0){
+    b <- carry
+    a <- b
+    carry <- a %% b
+}
+print(a)
+```
+
+7 . Usando la función `sample` obtenga un muestreo de 10 números en el rango $[1,1000]$ (con reemplazo) y determine la relación entre la cantidad de primos encontrados y el tamaño de la muestra. Según la teoría de primos, una cota superior para la cantidad de primos menores o iguales a $n$ es $\frac{n}{ln(n)}$, analice cuán preciso es esto con este caso y un muestreo de 20 números en el rango de $[1,2000]$
+
+8 . Supongamos que $x$ es un vector numérico. Explica en detalle, como las siguientes expresiones son evaluadas y que valores toman
+
+```{r,eval=FALSE}
+sum(!is.na(x))
+c(x,x[-(1:length(x))])
+x[length(x) + 1]/length(x)
+sum(x > mean(x))
+```
+
+9 .Usando la función `cumprod` o otra relacionada, calcula
+
+$$
+1 + \frac{2}{3}+ \biggl(\frac{2}{3}\frac{4}{5}  \biggr) +  \biggl(\frac{2}{3}\frac{4}{5}\frac{6}{7} \biggr) + \cdots + \biggl(\frac{2}{3}\frac{4}{5}\cdots \frac{38}{39} \biggr).
+$$
+
+10 .  Sea $X$ el número de `unos` obtenidos en 12 lanzamientos  de un dado. Entonces $X$ tiene una  distribución Binomial $(n=12, p=1/3)$ . Calcule una tabla de probabilidades binomiales para $x=0, 1, \dots ,12$ por dos métodos:
+
+  * Usando la fórmula para la densidad: $P(X = K)=\binom{n}{k}p^{k}(1 -p)^{n -k}$ y aritm\'etica en R. Usa `0:12` para la secuencia de $x$ valores y la función `choose` para calcular los coeficientes binomiales $\binom{n}{k}$. 
+  *  Usando la función `dbinom` de R y comparar tus resultados con ambos métodos.
+  
+11 . Sea $X$ el número de `unos` obtenidos en 12 lanzamientos  de un dado. Entonces $X$ tiene una  distribución Binomial $(n=12, p=1/3)$. Calcula el CDF para $x=0, 1, \dots ,12$ por dos métodos:
+
+
+ * Usando la función `cumsum` y el resultado del ejercicio anterior.
+ * Con el uso de la función `pbinom`. ?` Qué es $P(X >7)$?.
+
+
+ 
+### Listas
+
+A diferencia de un vector, en el que todos los elementos deben ser del mismo tipo, la estructura de  una lista en R puede combinar objetos de diferentes tipos. Una lista  en R es similar a un diccionario de Python o, a un hash de Perl o puede resultar similar a una estructura de  C. Las listas son muy importantes en R, formando la base para los data frames,la  programación orientada a objetos,etc.
+
+Se puede construir listas usando ` list()`.
+
+
+```{r, comment=NA}
+x <- list(1:3, "a", c(TRUE, FALSE, TRUE), c(2.3, 5.9))
+str(x)
+```
+
+Los elementos de una lista puede ser otra lista:
+
+```{r, comment=NA}
+(lista_inicial <- list(
+  lista_media = list(
+    elemento_en_media_lista = diag(3),
+    interior_lista = list(
+      elemento_en_interior_lista = pi ^ 1:4,
+      otro_elemento_en_interior_lista = "a"
+      )
+    ),
+elemento_en_lista_inicial = log10(1:10)
+))
+```
+
+
+
+Dos funciones son muy útiles para la aplicación de  listas son `lapply()` y `sapply()`.  Más información sobre la familia `apply()` en [stackoverflow:r-grouping function ](http://stackoverflow.com/questions/3505701/r-grouping-functions-sapply-vs-lapply-vs-apply-vs-tapply-vs-by-vs-aggrega). 
+
+```
+lapply (list, f, fargs...)}
+```
+
+- `list` es una lista
+- `f`  es la función ha ser aplicada por ``lapply`
+- `fargs` son otros   paramétros
+
+La función `lapply()` aplica una función a los elementos de una lista o vector y devuelve los resultados en una lista. La función `lapply()`  es útil cuando se trata con  data frames. En R, los `data frames`  se consideran una lista y las variables  son los elementos de la lista, así podemos aplicar una función a todas las variables en un data frame  usando `lapply()`.
+
+`sapply()` aplica una función a los elementos de una lista y devuelve los resultados en un vector, matriz o una lista. 
+
+```
+sapply(lista, f,...simplify)}
+```
+
+- `list` es una lista
+- `f`  es la función ha ser aplicada por `sapply`
+- `simplify` --> Cuando el argumento `simplify = F` entonces la función  `sapply()` devuelve los resultados en una lista como la función  `lapply()`.  Cuando  `simplify = T`, `sapply()` devuelve los resultados en una forma simplificada. Si los resultados son todos  escalares entonces `sapply()` devuelve un vector. Si los resultados son todos de la misma longitud `sapply()` entonces devolverá una matriz con una columna para cada elemento en la lista a la que se aplicó la función.
+
+```{r,comment=NA,eval=FALSE}
+x <- list(1:3, "a", c(TRUE, FALSE, TRUE), c(2.3, 5.9))
+str(x)
+```
+
+
+
+Hay diferencias sutiles entre  `NA` y `NULL` en las estructuras de datos de R:
+
+```{r,comment=NA,eval=FALSE}
+v <-  c( 1, NA, NULL)
+v
+list(1, NA, NULL)
+```
+
+
+### Data frames
+
+Un data frame  es la forma más común de almacenamiento de datos en R, y si se utiliza sistemáticamente en  el análisis de datos como se explica el artículo [datos ordenadados de Hadley Wickman](http://vita.had.co.nz/papers/tidy-data.pdf).
+
+Los data frame  son  una lista de vectores de la misma longitud,  que hace que sea una estructura de dos dimensiones,  que comparte propiedades tanto de las matrices y  de las listas. Esto significa que un data frames  tenga las funciones `names()`, `colnames()` y `rownames()`. La `length()` de una data frame  es la longitud de la lista subyacente y así es el mismo valor  que produce `ncol()`.  `nrow()` da el número de filas.
+
+Se puede tener parte   de un data frame como una estructura de una dimensión (que se comporta como una lista), o una estructura de dos dimensiones (que se comporta como una matriz).
+
+
+Se puede crear un data frame usando la función `data.frame()` de la siguiente manera:
+
+```{r,comment=NA, eval=TRUE}
+help(data.frame)
+df <- data.frame(x = 1:3, y = c("Python", "R", "C"))
+str(df)
+```
+
+El  comportamiento predeterminado de `data.frame()`  convierte cadenas en factores. Usamos `stringAsFactors = FALSE` para suprimir ese comportamiento:
+
+```{r,comment=NA, eval=FALSE}
+df <- data.frame(
+  x = 1:3,
+  y = c("Python", "R", "C"),
+  stringsAsFactors = FALSE)
+str(df)
+```
+
+
+###  Aplicaciones y ejemplos de vectores y matrices
+
+Ejemplo de la matriz de covarianza, dado por Norman Matloff. 
+
+```{r}
+# Usando las funciones row() y col() cuyos argumentos son matrices
+
+matrizcoV <- function(rho,n) {
+    m <- matrix(nrow=n,ncol=n)
+    m <- ifelse(row(m) == col(m),1,rho) 
+    return(m)
+}
+matrizcoV(0.2,3)
+```
+
+Una práctica común en R es el de  visualizar la dimensionalidad de los datos. Los datos siguientes representan las cifras iniciales en la verificación de una oficial de reembolso de seguro, cuando un auditor financiero, le pidió investigar por fraude.
+
+```{r}
+accdato <- c(1, 132, 86.7,
+            2, 50, 50.7,
+            3, 32, 36.0,
+            4, 20, 27.9,
+            5, 19, 22.8,
+            6, 11, 19.3,
+            7, 10, 16.7,
+            8, 9, 14.7,
+            9, 5, 13.2)
+accdato
+```
+
+Acomodamos mejor el vector, como una matriz 9x3  cuyas columnas se llaman número, actual, v_esperado
+
+```{r}
+accdato <- matrix(accdato, 9, 3, byrow = TRUE)
+colnames(accdato) <- c("numero", "actual", "v_esperado")
+accdato
+```
+
+Podemos ahora usar el test de *chi-cuadrado* para averiguar si es que ha habido un fraude, a través de la desviación significativa o no de los datos reales y de los esperados. Escribamos el test
+
+```{r}
+chi2 <-sum((accdato[,2] -accdato[,3])^2/accdato[,3])
+chi2
+```
+
+El poder de las matrices en R, ocurre cuando realizamos operaciones (multiplicación, inversión, transposición, etc) comunes de  matrices y sus respectivas restricciones 
+
+```{r}
+A <- matrix(c(6,2,3, 4,
+             0, -8,2, 1,
+             8, -3, 7, -5),3, 4, byrow = TRUE)
+B <- matrix(c(-7,12,3, 9,
+             6, 2, 0, -1,
+             11, 5, -12, 8),3, 4, byrow = TRUE)
+
+A + B
+A -B
+```
+
+```{r}
+
+A * B   # Multiplicacion componente a componente
+```
+
+```{r}
+B1 <- matrix(c(-7,12,3, 9,
+             6, 2, 0, -1,
+             11, 5, -12, 8),4, 5, byrow = TRUE)
+A %*% B1  # Multiplicacion usual de matrices
+```
+
+El cálculo de la inversa de una matriz se realiza de la siguiente manera
+
+```{r}
+A <- matrix(c(4, 10, 6, 1 , 13, 5,
+           4,5, -2, 1, 8, 4,
+             -7, 5, 2, 1, 3, -4,
+             2,3, 4 ,5 , 6, 7,
+             1,3, 5,6, 7,-3,
+             0, 9, 7, 1,3, 4), 6, 6, byrow=TRUE)
+B <- solve(A)   ## Calculamos  la inversa de A
+B
+```
+
+```{r}
+A %*% B 
+```
+
+```{r}
+B %*% A
+```
+
+Para ejemplos de orden menor, se cumple que *AB= I = BA*
+
+```{r}
+M <- matrix(c(4,0,5,
+             0,1, -6,
+             3,0,4),3,3, byrow=TRUE)
+N <- solve(M)
+N
+```
+
+```{r}
+N%*%M
+```
+
+```{r}
+M %*%N
+```
+
+Uno de los aspectos más importantes de **R** es la familia de funciones `apply()` tales como `apply()`, `tapply()` y `lapply()`. La función `apply()` instruye a R a llamar una función  sobre cada fila o columna de una matriz. Esta es la forma general de `apply()` para matrices 
+
+```
+apply(m, dimcode, f, fargs)
+```
+
+donde los  argumentos son como sigue:
+
+* ` m` es una matriz.
+*  `dimcode` es la dimensión, igual a 1, si la función aplica a filas o 2 si la función aplica a columnas.
+*  `f` es la función a ser aplicada.
+*  `fargs` es un conjunto opcional de argumentos dados a `f`.
+
+```{r}
+help(apply)
+dw<- matrix(c(1,2,3,4,5,6), nrow=3)
+dw
+apply(dw, 1, mean)
+```
+
+Un ejemplo utilizando una función escrita por el usuario
+
+```{r}
+dw
+f <-function(x)x/c(2,5)
+dw1<- apply(dw, 1, f)
+dw1
+```
+
+```{r}
+t(apply(dw,1,f))
+```
+
+Un ejemplo más avanzado desde Norman Matloff, (The Art of R Programming)
+
+```{r}
+matriz0 <-function(fila,d) {
+    maj <- sum(fila[1:d]) / d
+    return(if(maj > 0.5) 1 else 0)
+}
+ax <-matrix(c(1,1,1,0, 0,1,0,1, 1, 1, 0,1, 1,1,1,1, 0,0,0,0), nrow=4)
+ax
+apply(ax,1,matriz0,3)
+apply(ax,1,matriz0,2)
+```
+
+El uso de `apply()` no acelera el código. El beneficio de utilizar esta función es que hace el código mucho más  compacto y por tanto más fácil de leer y modificar  evitando  posibles errores en la escritura de código cuando se trabaja con bucles.
+
+Por otra parte, cuando R  desarrolla el procesamiento en paralelo, funciones como `apply()` serán muy útiles e importantes. Por ejemplo, la función `clusterApply()` en el paquete `snow`` de R da cierta capacidad de procesado en paralelo mediante la distribución de los datos de una submatriz a varios nodos de una red.
+
+La función `outer` aplica una función a dos arrays
+
+```{r}
+help(outer)
+x<- c(1,2.3,2,3,4,8,12,43)
+y<- c(2,4)
+outer(x,y,"log")
+```
+
+```{r}
+(valores <- outer(1:5, 1:5, FUN = "paste", sep = ","))
+valores[c(4, 15)]
+```
+
+####  El método del Simplex 
+ 
+Sea el problema de programación lineal, que será resuelto por el [simplex algorithm](https://jeremykun.com/2014/12/01/linear-programming-and-the-simplex-algorithm/)
+
+
+min C = 5x<sub>1</sub> + 8x<sub>2</sub>
+
+sujeto a los restricciones
+
+x<sub>1</sub> + x<sub>2</sub> >=2
+
+x<sub>1</sub> + 2x<sub>2</sub> >=3 
+
+y
+
+x<sub>1</sub>, x<sub>2</sub> >= 0
+
+Para resolver este problema usamos los paquetes  [lpSolve-lpSolveApi](http://lpsolve.r-forge.r-project.org/) de la siguiente manera 
+
+```
+install.packages("lpSolve")
+install.packages("lopSolveAPI")
+```
+
+```{r}
+library(lpSolve)
+ejemplo.pl <- lp(objective.in=c(5, 8), const.mat=matrix(c(1, 1, 1, 2),nrow=2), const.rhs=c(2, 3), const.dir=c(">=", ">="))
+ejemplo.pl
+ejemplo.pl$solution
+```
+
+La salida nos dice que el valor que minimiza el problema, está en x<sub>1</sub> = 1, x<sub>2</sub> = 1
+y el mínimo valor de la función objetivo es 13.
+
+#### Descomposición de Cholesly
+
+La factorización de Cholesly es un método de descomposición de una matriz definida positiva. Algunas [aplicaciones de la descomposicion de Cholesky](https://en.wikipedia.org/wiki/Cholesky_decomposition#Applications) incluye las soluciones de ecuaciones lineales, simulación de Montecarlo y los filtros de Kalman.
+
+La función `chol()` lleva a cabo la descomposición de una matriz definida positiva. 
+
+
+```{r}
+A = as.matrix(data.frame(c(3,4,3),c(4,8,6),c(3,6,9)))
+colnames(A) <- NULL
+A
+```
+
+Factorizamos la matriz con la función `chol()`
+
+```{r}
+A.chol <- chol(A)
+A.chol
+```
+
+La función `chol()` devuelve una matriz triangular superior. La transposición de la matriz  produce una matriz triangular inferior 
+
+```{r}
+t(A.chol)
+```
+
+y esto coincide con el resultado de la salida de la función `chol()`.  Podemos verificar el resultado
+
+```{r}
+t(A.chol) %*% A.chol
+```
+
+Lectura : [Algorithm for Cholesky decomposition](http://www.math.sjsu.edu/~foster/m143m/cholesky.pdf).
