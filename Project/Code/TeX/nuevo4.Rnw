@@ -1,5 +1,5 @@
 % !Rnw weave = knitr
-% !TeX program = XeLaTeX
+% !TeX program = pdfLaTeX
 \documentclass[final,a4paper,romanappendices]{IEEEtran}%draft, onecolumn,9pt,twoside
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
