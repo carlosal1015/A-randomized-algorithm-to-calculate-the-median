@@ -180,7 +180,9 @@ asume que la función de piso es computable en tiempo constante, el problema se 
 A partir de lo señalado y enfocado a nuestro proyecto, es necesario utilizar la aleatoriedad para obtener una mejor probabilidad en caso cualquiera. Por lo expuesto, se procede a elaborar un seudocódigo para hallar la mediana de manera aleatoria con la idea de poder transcribirlo a cualquier lenguaje de programación, en nuestro caso en lenguaje R. Para hallar la mediana de un conjunto de datos, se deben de utilizar un algoritmo de ordenamiento y de búsqueda, ya que no se sabe si el conjunto de datos está ordenado. Para ello se analiza primero los algoritmos de búsqueda.
 \newline
 Aplicado a nuestro objetivo sería ineficiente buscar secuencialmente la mediana, ya que no necesitamos recorrer toda la cadena para hallarlo, aun peor cuando no está ordenado. Igualmente pasaría con un algoritmo de búsqueda binaria, ya que de estar ordenado tan solo se necesitaría devolver. Entonces, es necesario implementar algún algoritmo de ordenamiento.
-\newline
+
+\subsection{Uso de los algoritmos de ordenamiento}
+
 Como se presentó anteriormente, existen diferentes tipos de algoritmos de ordenamiento. Para escoger el más indicado se debe tomar en cuenta el tiempo de ejecución, es decir cuánto tiempo demora en ordenar todo el conjunto de datos. Para ello se utiliza la gran $O$ como determinante para el análisis de los tiempos. Se tiene algoritmos de ordenamiento en $O(n^2)$, $O(n\log_{2}n)$ y hasta $O(n)$.
 \newline
 Sin embargo, no es necesario ordenarlo todo para hallarlo. Para ello se podría ordenar hasta $n/2$ de forma secuencial sin problema alguno y el resto dejarlo tal como estaba. Podría ser una solución buena, pero se puede mejorar aún más. Si analizamos la estructura del Quicksort, nos puede ayudar en la búsqueda de la mediana, el cual cuenta con dos secciones:
@@ -188,27 +190,139 @@ Sin embargo, no es necesario ordenarlo todo para hallarlo. Para ello se podría 
 \begin{itemize}
 	\item La función {\bf{PARTICION}} tiene como entrada $A$, $p$ y $r$. $A$ es una cadena de elementos de tamaño $n$, $p$ es la posición inicial relativa y $r$ es una posición final relativa. La función se encarga de seleccionar un pivote, el cual es el último elemento en la cadena, en donde se una separación de los números en comparación con el pivote, donde los menores irán a la izquierda y los mayores a la derecha. Por último, el pivote intercambia de posición con el primer mayor encontrado, y devuelve esa posición.
 
-\end{itemize}
+
 
 \begin{algorithm}[ht]
-\caption{PARTICION}
+\caption{PARTITION}
 \begin{algorithmic}[1]
-	\Require $A,p,r$
-	\Ensure $q$
-		\State $x \gets A[r]$
-		\State $i \gets p-1$
-		\For{j} {p} {r - 1}		
-			\If{ $A[j] \leq x$ }
-				\State $i \gets i+1$
-				\State Cambio $(A[i] , A[j])$
-				\State Cambio $(A[i+1] , A[r])$
-			\EndIf
+	
+	\Require $A$ , $p$ , $r$
+	\Ensure $q$ posición del pivote
+	
+	\State $x \gets A[r]$
+	\State $i \gets p-1$
+	\For{j} {p} {r - 1}		
+		\If{ $A[j] \leq x$ }
+			\State $i \gets i+1$
+			\State Cambio ($A[i]$ , $A[j]$)
+			\State Cambio ($A[i+1]$ , $A[r]$)
+		\EndIf
 	\EndFor
 	\State Retorna $i+1$
 
 \end{algorithmic}
 \end{algorithm}
 
+
+	\item La función {\bf{QUICKSORT}} tiene las mismas entradas que la función anterior. Su trabajo es realizar el proceso anterior de manera recursiva, es decir realizando el mismo proceso una vez subdivida la cadena inicial por el pivote (parte menor y parte mayor).
+
+\end{itemize}
+
+\begin{algorithm}[ht]
+	\caption{QUICKSORT}
+	\begin{algorithmic}[1]
+		
+		\Require $A,p,r$
+		\Ensure $A$ array arreglado
+		
+		\If{ $p < r$ }
+			\State $q \gets $ PARTITION ($A$ , $p$ , $r$)
+			\State QUICKSORT ($A$ , $p$ , $q-1$)
+			\State QUICKSORT ($A$ , $q+1$ , $r$)
+		\EndIf
+
+	\end{algorithmic}
+\end{algorithm}
+
+Lo importante a resaltar es que el algoritmo {\bf{QUICKSORT}} tiene $O(nlogn)$ como tiempo promedio y que es el más rápido en comparación con los otros algoritmos de igual complejidad, pero tiene $O(n^2)$ en el peor de los casos. Esto hace de que tenga una gran desventaja.
+
+\subsection{Uso de la aleatorización}
+
+Para ello se utiliza la aleatorización con el propósito de evitar que se presente el peor caso. En ese sentido lo que se hará es seleccionar de manera aleatoria el pivote. Esto realiza con las siguientes funciones: 
+
+\begin{algorithm}[ht]
+	\caption{RANDOM\_PARTITION}
+	\begin{algorithmic}[1]
+		
+		\Require $A$ , $p$ , $r$
+		\Ensure $q$ posición del pivote
+		
+		\State $i \gets $ Random($p$ , $r$)
+		\State Cambio ($A[r]$ , $A[i]$)
+		\State Retorna PARTITION($A$ , $p$ , $r$)
+		
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[ht]
+	\caption{RANDOM\_QUICKSORT}
+	\begin{algorithmic}[1]
+		
+		\Require $A$ , $p$ , $r$
+		\Ensure $A$ array arreglado
+		
+		\If{ $p < r$ }
+			\State $q \gets $ RANDOM\_PARTITION ($A$ , $p$ , $r$)
+			\State RANDOM\_QUICKSORT ($A$ , $p$ , $q-1$)
+			\State RANDOM\_QUICKSORT ($A$ , $q+1$ , $r$)
+		\EndIf
+		
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{Mejoras en el algoritmo}
+Como ya se había mencionado, se puede mejorar aún más el resultado. Por ello, se utiliza una variación del {\bf{QUICKSORT}} el cual es {\bf{QUICKSELECTION}}.
+El {\bf{QUICKSELECTION}} tiene como entradas $A$,$p$,$r$ e $i$, donde $i$ es la posición que estamos buscando (mediana). Lo primero que hace es comparar si $p$ y $r$ son iguales, es decir el tamaño es 1, y procede a devolver único número. Luego utiliza la función {\bf{PARTITION}} al igual que en el {\bf{QUICKSORT}} y coloca en $q$ la posición del pivote. Luego se crea una variable $k$, la cual es la posición central obtenida por {\bf{PARTITION}}, y se compara con $i$, que en este caso es la mediana o $n/2$. Si lo es devuelve el resultado, de lo contrario hará una comparación. Si $k$ es mayor a la posición central, realizará una recursión para el lado izquierdo, sino lo hará al lado derecho.
+
+\begin{algorithm}[h]
+	\caption{QUICKSELECTION}
+	\begin{algorithmic}[1]
+		
+		\Require $A$ , $p$ , $r$ , $i$
+		\Ensure $A[i]$ elemento del array semiarreglado
+		
+		\If{ $p = r$ }
+			\State Retorna $A[p]$
+		\EndIf
+		\State $q \gets $ PARTITION ($A$ , $p$ , $r$)
+		\If{ $q = i$ }
+			\State Retorna $A[p]$
+		\Else
+			\If { $q > i$ }
+				\State QUICKSELECTION ($A$ , $p$ , $q-1$ , $i$)
+			\Else
+				\State QUICKSELECTION ($A$ , $q+1$ , $r$ , $i$)
+			\EndIf
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+Utilizando la aleatorización para mejorar el rendimiento del algoritmo:
+
+\begin{algorithm}[H]
+	\caption{RANDOM\_QUICKSELECTION}
+	\begin{algorithmic}[1]
+		
+		\Require $A$ , $p$ , $r$ , $i$
+		\Ensure $A[i]$ elemento del array semiarreglado
+		
+		\If{ $p = r$ }
+			\State Retorna $A[p]$
+		\EndIf
+		\State $q \gets $ RANDOM\_PARTITION ($A$ , $p$ , $r$)
+		\If{ $q = i$ }
+			\State Retorna $A[p]$
+		\Else
+			\If { $q > i$ }
+				\State RANDOM\_QUICKSELECTION ($A$ , $p$ , $q-1$ , $i$)
+			\Else
+				\State RANDOM\_QUICKSELECTION ($A$ , $q+1$ , $r$ , $i$)
+			\EndIf
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+Frente a esto tenemos que el algoritmo es mucho más eficiente y rápido al tratar de hallar la mediana que anteriormente, llegando inclusive a una ejecución de tiempo $O(n)$, ya que no utiliza la otra división restante ni llega a completar todo el ordenamiento.
 
 %\section{Agradecimientos}
 
