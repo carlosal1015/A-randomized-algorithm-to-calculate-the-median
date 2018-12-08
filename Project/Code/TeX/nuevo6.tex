@@ -1,0 +1,332 @@
+% arara: pdflatex
+% arara: bibtex
+% arara: pdflatex
+% arara: pdflatex
+\documentclass[final,a4paper,romanappendices]{IEEEtran}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}%draft, onecolumn,9pt,twoside
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\spanishdatedel
+\usepackage{amsmath,amsthm}
+\usepackage[cmintegrals]{newtxmath}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\usepackage{lipsum}
+\usepackage{multicol}
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\usepackage[backend=bibtex]{biblatex}
+\addbibresource{bib.bib}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[subsection]
+\title{Un algoritmo aleatorizado para calcular la mediana}
+\author{\IEEEauthorblockN{Erwin Talla Chumpitaz\IEEEauthorrefmark{1},
+Carlos Aznarán Laos\IEEEauthorrefmark{2}, Miller Silva Menejes\IEEEauthorrefmark{3} y
+Jesús Jáuregui Alvarado\IEEEauthorrefmark{4}}
+\IEEEauthorblockA{\\Facultad de Ciencias,
+Universidad Nacional de Ingeniería\\
+Av. Túpac Amaru 210, Rímac, Lima 25, Perú\\
+Email: \IEEEauthorrefmark{1}erwinleo\textunderscore 98\MVAt hotmail.com,
+\IEEEauthorrefmark{2}caznaranl\MVAt uni.pe,
+\IEEEauthorrefmark{3}miller\textunderscore silva\textunderscore 96\MVAt hotmail.com,
+\IEEEauthorrefmark{4}jjaureguia\MVAt uni.pe}}
+
+\newcommand{\MVAt}{{\usefont{U}{mvs}{m}{n}\symbol{`@}}}
+%\thanks{El profesor César Lara Ávila}
+%\author{Michael \IEEEmembership{Member,~IEEE,\thanks{M}}}
+
+%\renewcommand\IEEEkeywordsname{Palabras clave}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\maketitle
+\begin{abstract}
+En el ámbito de la estadística y probabilidad existe controversia sobre cuándo utilizar la mediana como medida de tendencia central. El objetivo de este artículo es valorar mediante un programa en R su utilidad.
+
+Para poder llevar a cabo esta investigación, se han revisado artículos científicos similares y consultado la base de datos de “data.worldbank.org” World Bank Open Data, ScienceDirect y otros de donde extrajimos la muestra para la experimentación.
+
+Después de haber probado diferentes métodos para el cálculo aleatorizado de la mediana, llamamos “randomquicksort” a nuestro programa más eficiente.
+\end{abstract}
+
+\begin{IEEEkeywords}
+tendencia central, mediana, algoritmo aleatorizado, randomquicksort
+\end{IEEEkeywords}
+% TODO: Después de introducción que esté en dos columnas.
+
+\section{Introducción}
+No hay persona en el mundo que no se haya valido en la Estadística y Probabilidad en algún momento de su vida, desde calcular el tiempo promedio al salir de su casa a esperar el bus para dirigirse al trabajo, pasando por juegos de azar, hasta realizar complejos cálculos para pronosticar resultados futuros para invertir en la bolsa. En el mundo de la estadística existen distintas medidas de tendencia central, entre las más comunes se encuentran; la media, la mediana y la moda, en este reporte nos enfocaremos en la Mediana, repasando desde su origen, importancia y sus aplicaciones en la vida, incluso encontrar el algoritmo aleatorizado más eficiente para el cálculo de la misma, entonces al finalizar de leer este reporte usted sabrá como y cuando utilizar la mediana como medida de tendencia central, así mismo le mostraremos como implementar un código en R que realice este procedimiento de la manera más eficientemente posible.
+
+\begin{definition}[\bf {Percentil}]
+Es una medida de posición, donde Percentil i es aquel valor $P_{i}$ que deja a su izquierda el $i$ y el resto por encima de los valores de la muestra ordenada de menor a mayor, de esta forma el valor de la mediana es representada como el Percentil $50$,  $P_{50}$.
+\end{definition}
+
+\begin{definition}[\bf {Cálculo de percentiles (Caso Continuo)}]
+Se realizan los siguientes pasos:
+\begin{enumerate}
+	\item Construir la tabla de porcentajes acumulados $P_{l}$.
+	\item	Ubicar el $50$\% tal que: $$ P_{i-1} \leq l\leq P_{i} $$.
+	\item $L_{i-1}$ y $L_{i}$ son los límites inferior y superior del intervalo correspondientes a $P_{i-1}$ y $P_{i}$ respectivamente.
+\end{enumerate}
+
+Entonces el percentil $p_{l}$ se calcula mediante la siguiente fórmula: $$ p_{l} = L_{i-1} + \frac{l - P_{i-1}}{P_{i} + P_{i-1}} (L_{i} - L_{i-1}).$$
+\end{definition}
+
+\begin{definition}[\bf {Mediana de una distribución}]
+Es un valor $x_m$ de $\mathbb{X}$ tal que el $50\%$ de los posibles valores de
+ $X$ están por debajo de $x_m$ y el $50\%$ de los posibles valores de $\mathbb{X}$ están por arriba de $x_m$.
+\end{definition}
+
+\begin{definition}[\bf {Algoritmos de búsqueda}]
+Un algoritmo de búsqueda se encarga de, a partir de una serie de criterios, encontrar un determinado elemento dentro de un conjunto de datos. Dentro de los más conocidos y más utilizados están:
+
+\begin{itemize}
+	\item \textit{Búsqueda secuencial}: Para encontrar un elemento en un conjunto estructurado, se analiza elemento por elemento hasta encontrar con aquel elemento solicitado. Tiene un tiempo, en el peor caso, de $O(n)$.
+
+	\item \textit{Búsqueda binaria}: En este caso, el conjunto de elementos debe estar ordenado de modo que se compara con el elemento medio si es menor(izquierda), mayor(derecha) e igual (devuelve el valor), y se repite el proceso reduciendo la cantidad de datos. Tiene un tiempo, en el peor caso, de $O(log2n)$.
+\end{itemize}
+
+\end{definition}
+
+\begin{definition}[\bf {Algoritmo de ordenamiento}]
+
+Un algoritmo de ordenamiento se encarga de comparar todos los elementos y colocarlos en un orden, mediante algún método (intercambio, mezcla, partición, etc.). Los algoritmos más utilizados son: %(Cormen. 30-31, 148-150, 170-174)
+\begin{itemize}
+	
+	\item \textit{Ordenamiento de burbuja (BUBBLESORT)}:	Este algoritmo funciona comparando cada elemento de la lista con el siguiente e intercambiando si es que el elemento comparado es menor. Tiene como complejidad $O(n^2)$.
+
+	\item \textit{Ordenamiento por mezcla (MERGESORT)}:	Este algoritmo funciona dividiendo en la mitad recursivamente en una cantidad de elementos, cuando son pequeñas cantidades se procede a ordenarlos y agruparlos, de manera progresiva hasta su totalidad. Tiene complejidad $O(n\log_{2} n)$.
+	
+	\item \textit{Ordenamiento rápido (QUICKSORT)}:	Este algoritmo funciona utilizando un pivote, el cual tiene la función de comparar y particionar el conjunto de datos entre menores y mayores que el pivote, este procedimiento se repite en las dos particiones y así sucesivamente. Tiene complejidad $O(n\log_{2} n)$. Es uno de los algoritmos más rápidos, por tal motivo se tiene pensado utilizar este algoritmo para lograr el objetivo de este proyecto.
+	
+\end{itemize}
+
+\end{definition}
+
+\begin{definition}[\bf {Algoritmos aleatorios}]
+Los algoritmos aleatorios son aquellos que utilizan en alguna parte de su estructura números aleatorios, con el fin de lograr las mismas posibilidades frente a cualquier caso.
+\end{definition}
+
+\section{Estado del arte}
+
+\begin{itemize}
+  \item El primer algoritmo aleatorizado fue un método desarrollado por Michael O. Rabin para el problema de par más cercano en la geometría computacional:
+
+{\centering
+``Dados n puntos en el espacio métrico , encuentre un par de puntos con la menor distancia entre ellos''\par
+}
+  \item Un algoritmo ingenuo para encontrar distancias entre todos los pares de puntos en un espacio de dimensión $d$ y seleccionar el mínimo requiere $O(n^2)$ tiempo y se puede resolver en $O(n\log n)$ tiempo en un espacio euclidiano. En el modelo computacional que
+asume que la función de piso es computable en tiempo constante, el problema se puede resolver en el tiempo $O(n\log n\log n)$. Si permitimos que la aleatorización se use junto con la función de piso, el problema se puede resolver en el tiempo $O(n)$.
+  \item Michael O. Rabin demostró que la prueba de primalidad de Miller de 1976 se puede convertir en un algoritmo aleatorizado. En ese momento, no se conocía ningún algoritmo determinístico práctico para la primalidad.
+  \item Actualmente existen varios algoritmos aleatorios para encontrar la mediana, cada algoritmo se diferencia en su procedimiento para ordenar los datos aleatorios. Los algoritmos más usados por su eficacia y eficiencia para ordenar datos son merge sort, heapsort y quicksort.
+\end{itemize}
+
+\section{Diseño del experimento}
+
+A partir de lo señalado y enfocado a nuestro proyecto, es necesario utilizar la aleatoriedad para obtener una mejor probabilidad en caso cualquiera. Por lo expuesto, se procede a elaborar un seudocódigo para hallar la mediana de manera aleatoria con la idea de poder transcribirlo a cualquier lenguaje de programación, en nuestro caso en lenguaje R. Para hallar la mediana de un conjunto de datos, se deben de utilizar un algoritmo de ordenamiento y de búsqueda, ya que no se sabe si el conjunto de datos está ordenado. Para ello se analiza primero los algoritmos de búsqueda.
+\newline
+Aplicado a nuestro objetivo sería ineficiente buscar secuencialmente la mediana, ya que no necesitamos recorrer toda la cadena para hallarlo, aun peor cuando no está ordenado. Igualmente pasaría con un algoritmo de búsqueda binaria, ya que de estar ordenado tan solo se necesitaría devolver. Entonces, es necesario implementar algún algoritmo de ordenamiento.
+
+\subsection{Uso de los algoritmos de ordenamiento}
+
+Como se presentó anteriormente, existen diferentes tipos de algoritmos de ordenamiento. Para escoger el más indicado se debe tomar en cuenta el tiempo de ejecución, es decir cuánto tiempo demora en ordenar todo el conjunto de datos. Para ello se utiliza la gran $O$ como determinante para el análisis de los tiempos. Se tiene algoritmos de ordenamiento en $O(n^2)$, $O(n\log_{2}n)$ y hasta $O(n)$.
+\newline
+Sin embargo, no es necesario ordenarlo todo para hallarlo. Para ello se podría ordenar hasta $n/2$ de forma secuencial sin problema alguno y el resto dejarlo tal como estaba. Podría ser una solución buena, pero se puede mejorar aún más. Si analizamos la estructura del Quicksort, nos puede ayudar en la búsqueda de la mediana, el cual cuenta con dos secciones:
+\newline
+\begin{itemize}
+	\item La función {\bf{PARTICION}} tiene como entrada $A$, $p$ y $r$. $A$ es una cadena de elementos de tamaño $n$, $p$ es la posición inicial relativa y $r$ es una posición final relativa. La función se encarga de seleccionar un pivote, el cual es el último elemento en la cadena, en donde se una separación de los números en comparación con el pivote, donde los menores irán a la izquierda y los mayores a la derecha. Por último, el pivote intercambia de posición con el primer mayor encontrado, y devuelve esa posición.
+
+
+
+\begin{algorithm}[ht]
+\caption{PARTITION}
+\begin{algorithmic}[1]
+	
+	\Require $A$ , $p$ , $r$
+	\Ensure $q$ posición del pivote
+	
+	\State $x \gets A[r]$
+	\State $i \gets p-1$
+	\For{j} {p} {r - 1}		
+		\If{ $A[j] \leq x$ }
+			\State $i \gets i+1$
+			\State Cambio ($A[i]$ , $A[j]$)
+			\State Cambio ($A[i+1]$ , $A[r]$)
+		\EndIf
+	\EndFor
+	\State Retorna $i+1$
+
+\end{algorithmic}
+\end{algorithm}
+
+
+	\item La función {\bf{QUICKSORT}} tiene las mismas entradas que la función anterior. Su trabajo es realizar el proceso anterior de manera recursiva, es decir realizando el mismo proceso una vez subdivida la cadena inicial por el pivote (parte menor y parte mayor).
+
+\end{itemize}
+
+\begin{algorithm}[ht]
+	\caption{QUICKSORT}
+	\begin{algorithmic}[1]
+		
+		\Require $A,p,r$
+		\Ensure $A$ array arreglado
+		
+		\If{ $p < r$ }
+			\State $q \gets $ PARTITION ($A$ , $p$ , $r$)
+			\State QUICKSORT ($A$ , $p$ , $q-1$)
+			\State QUICKSORT ($A$ , $q+1$ , $r$)
+		\EndIf
+
+	\end{algorithmic}
+\end{algorithm}
+
+Lo importante a resaltar es que el algoritmo {\bf{QUICKSORT}} tiene $O(nlogn)$ como tiempo promedio y que es el más rápido en comparación con los otros algoritmos de igual complejidad, pero tiene $O(n^2)$ en el peor de los casos. Esto hace de que tenga una gran desventaja.
+
+\subsection{Uso de la aleatorización}
+
+Para ello se utiliza la aleatorización con el propósito de evitar que se presente el peor caso. En ese sentido lo que se hará es seleccionar de manera aleatoria el pivote. Esto realiza con las siguientes funciones: 
+
+\begin{algorithm}[ht]
+	\caption{RANDOM\_PARTITION}
+	\begin{algorithmic}[1]
+		
+		\Require $A$ , $p$ , $r$
+		\Ensure $q$ posición del pivote
+		
+		\State $i \gets $ Random($p$ , $r$)
+		\State Cambio ($A[r]$ , $A[i]$)
+		\State Retorna PARTITION($A$ , $p$ , $r$)
+		
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[ht]
+	\caption{RANDOM\_QUICKSORT}
+	\begin{algorithmic}[1]
+		
+		\Require $A$ , $p$ , $r$
+		\Ensure $A$ array arreglado
+		
+		\If{ $p < r$ }
+			\State $q \gets $ RANDOM\_PARTITION ($A$ , $p$ , $r$)
+			\State RANDOM\_QUICKSORT ($A$ , $p$ , $q-1$)
+			\State RANDOM\_QUICKSORT ($A$ , $q+1$ , $r$)
+		\EndIf
+		
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{Mejoras en el algoritmo}
+Como ya se había mencionado, se puede mejorar aún más el resultado. Por ello, se utiliza una variación del {\bf{QUICKSORT}} el cual es {\bf{QUICKSELECTION}}.
+El {\bf{QUICKSELECTION}} tiene como entradas $A$,$p$,$r$ e $i$, donde $i$ es la posición que estamos buscando (mediana). Lo primero que hace es comparar si $p$ y $r$ son iguales, es decir el tamaño es 1, y procede a devolver único número. Luego utiliza la función {\bf{PARTITION}} al igual que en el {\bf{QUICKSORT}} y coloca en $q$ la posición del pivote. Luego se crea una variable $k$, la cual es la posición central obtenida por {\bf{PARTITION}}, y se compara con $i$, que en este caso es la mediana o $n/2$. Si lo es devuelve el resultado, de lo contrario hará una comparación. Si $k$ es mayor a la posición central, realizará una recursión para el lado izquierdo, sino lo hará al lado derecho.
+
+\begin{algorithm}[h]
+	\caption{QUICKSELECTION}
+	\begin{algorithmic}[1]
+		
+		\Require $A$ , $p$ , $r$ , $i$
+		\Ensure $A[i]$ elemento del array semiarreglado
+		
+		\If{ $p = r$ }
+			\State Retorna $A[p]$
+		\EndIf
+		\State $q \gets $ PARTITION ($A$ , $p$ , $r$)
+		\If{ $q = i$ }
+			\State Retorna $A[p]$
+		\Else
+			\If { $q > i$ }
+				\State QUICKSELECTION ($A$ , $p$ , $q-1$ , $i$)
+			\Else
+				\State QUICKSELECTION ($A$ , $q+1$ , $r$ , $i$)
+			\EndIf
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+Utilizando la aleatorización para mejorar el rendimiento del algoritmo:
+
+\begin{algorithm}[H]
+	\caption{RANDOM\_QUICKSELECTION}
+	\begin{algorithmic}[1]
+		
+		\Require $A$ , $p$ , $r$ , $i$
+		\Ensure $A[i]$ elemento del array semiarreglado
+		
+		\If{ $p = r$ }
+			\State Retorna $A[p]$
+		\EndIf
+		\State $q \gets $ RANDOM\_PARTITION ($A$ , $p$ , $r$)
+		\If{ $q = i$ }
+			\State Retorna $A[p]$
+		\Else
+			\If { $q > i$ }
+				\State RANDOM\_QUICKSELECTION ($A$ , $p$ , $q-1$ , $i$)
+			\Else
+				\State RANDOM\_QUICKSELECTION ($A$ , $q+1$ , $r$ , $i$)
+			\EndIf
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+Frente a esto tenemos que el algoritmo es mucho más eficiente y rápido al tratar de hallar la mediana que anteriormente, llegando inclusive a una ejecución de tiempo $O(n)$, ya que no utiliza la otra división restante ni llega a completar todo el ordenamiento.
+
+%\section{Agradecimientos}
+
+\nocite{*}
+\printbibliography
+%\printbibliography[title={Referencias bibliográficas},heading=bibintoc]
+\end{document}
